@@ -1,0 +1,19 @@
+header {
+    background: #333;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    padding: 5px 25px;
+}
+
+.btnHome {
+    background: transparent;
+    padding: 5px;
+    border-radius: 10px;
+    transition: 1s;
+}
+
+.btnHome h1 {
+    transition: 0.5s;
+    color: #7de454;
+}
