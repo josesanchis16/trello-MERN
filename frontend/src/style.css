@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   user-select: none;
-  color: #222;
+  color: #293d61;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -13,7 +13,6 @@ html {
 }
 
 body {
-  margin: 0;
   height: 100%;
   background: #c5c5c5;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

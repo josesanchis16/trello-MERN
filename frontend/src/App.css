@@ -1,0 +1,9 @@
+.bodyContent {
+    height: 100%;
+    background: url('https://images.wallpaperscraft.com/image/palms_vector_art_118164_3840x2400.jpg');
+    background-size: cover;
+    background-position: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
