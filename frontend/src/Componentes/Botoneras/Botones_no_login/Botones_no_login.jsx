@@ -10,7 +10,6 @@ class Botones_no_login extends React.Component {
             <div className="divButtons">
                 <div>
                     <Link className="button" to="/login"><p className="btnLogin divButton">Log in</p></Link>
-                    <Link className="button" to="/signup"><p className="btnLogin divButton">Sign up</p></Link>
                 </div>
             </div>
         )

@@ -2,6 +2,7 @@ import React from 'react';
 
 //Importacion de componentes
 import Header from '../../Componentes/Header/Header';
+import IndexBody from '../../Componentes/Contents/IndexBody/Index';
 
 //Importacion de estilos
 import './Index.css';
@@ -9,8 +10,9 @@ import './Index.css';
 class Index extends React.Component {
     render() {
         return (
-            <div>
+            <div className="page">
                 <Header />
+                <IndexBody />
             </div>
         )
     }

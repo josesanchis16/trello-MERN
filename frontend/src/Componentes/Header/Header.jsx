@@ -12,7 +12,7 @@ class Header extends React.Component {
         return (
             <header>
                 <div className="btnHome">
-                    <Link to="/"><h1>Todo Now</h1></Link>
+                    <Link to="/"><h1>TodoNow</h1></Link>
                 </div>
                 <div className="centerIcon">
                     <img src="https://img.icons8.com/color/48/000000/carpet-man.png" alt="icon" />

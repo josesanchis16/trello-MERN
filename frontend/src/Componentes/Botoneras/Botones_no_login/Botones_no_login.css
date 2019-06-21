@@ -8,12 +8,19 @@
     border-radius: 7px;
 }
 
-.divButtons a:nth-child(2) {
-    background: #c5c5c5;
+.divButtons a p {
+    color: #c5c5c5;
+    transition: 0.5s;
 }
 
-.divButtons a:nth-child(1) p {
-    color: #c5c5c5;
+.divButtons a:hover {
+    background: #c5c5c5;
+    transition: 0.5s;
+}
+
+.divButtons a:hover p {
+    color: #222;
+    transition: 0.5s;
 }
 
 .button {
