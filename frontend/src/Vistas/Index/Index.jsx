@@ -1,7 +1,7 @@
 import React from 'react';
 
 //Importacion de componentes
-import Header from '../../Componentes/Header/Header';
+import Header from '../../Componentes/Headers/HeaderCompleto/Header';
 import IndexBody from '../../Componentes/Contents/IndexBody/Index';
 
 //Importacion de estilos

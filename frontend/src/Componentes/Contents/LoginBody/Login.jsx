@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-//Importamos los estilos
-import './Login.css';
-
 class Login extends React.Component {
     render() {
         return (
@@ -16,11 +13,14 @@ class Login extends React.Component {
                         <form action="login" method="POST">
                             <div className="inputEmailOrNick individualInput">
                                 <i className="fa-2x fas fa-at"></i>
-                                <input type="text" name="emailornick" id="emailornick" placeholder="Email or Username"/>
+                                <input type="text" name="emailornick" id="emailornick" placeholder="Email or Username" />
                             </div>
                             <div className="inputPassword individualInput">
                                 <i className="fa-2x fas fa-key"></i>
-                                <input type="password" name="password" id="password" placeholder="Password"/>
+                                <input type="password" name="password" id="password" placeholder="Password" />
+                            </div>
+                            <div className="divError">
+                                All fields must be filled
                             </div>
                             <button type="submit">Log in</button>
                         </form>
