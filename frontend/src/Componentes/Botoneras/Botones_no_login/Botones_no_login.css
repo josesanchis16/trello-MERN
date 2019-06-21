@@ -1,0 +1,22 @@
+.divButtons>div {
+    display: flex;
+}
+
+.divButtons a {
+    padding: 10px 10px;
+    margin: 5px 10px;
+    border-radius: 7px;
+}
+
+.divButtons a:nth-child(2) {
+    background: #c5c5c5;
+}
+
+.divButtons a:nth-child(1) p {
+    color: #c5c5c5;
+}
+
+.button {
+    padding: 5px;
+    text-decoration: none;
+}

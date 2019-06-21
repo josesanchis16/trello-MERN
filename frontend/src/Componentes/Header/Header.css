@@ -1,5 +1,5 @@
 header {
-    background: #333;
+    background: #293d61;
     justify-content: space-between;
     align-items: center;
     display: flex;
@@ -13,7 +13,11 @@ header {
     transition: 1s;
 }
 
+.btnHome a {
+    text-decoration: none;
+}
+
 .btnHome h1 {
     transition: 0.5s;
-    color: #7de454;
+    color: #c5c5c5;
 }

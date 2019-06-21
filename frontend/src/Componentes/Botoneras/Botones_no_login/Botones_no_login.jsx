@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 //Importacion de los estilos
 import './Botones_no_login.css';
@@ -9,14 +9,9 @@ class Botones_no_login extends React.Component {
         return (
             <div className="divButtons">
                 <div>
-                    <p className="btnLogin divButton">
-                        <Link className="button" to="/login">Log in</Link>
-                    </p>
-                    <p className="btnLogin divButton">
-                        <Link className="button" to="/signup">Sign up</Link>
-                    </p>
+                    <Link className="button" to="/login"><p className="btnLogin divButton">Log in</p></Link>
+                    <Link className="button" to="/signup"><p className="btnLogin divButton">Sign up</p></Link>
                 </div>
-                <div></div>
             </div>
         )
     }
