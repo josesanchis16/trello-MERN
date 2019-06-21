@@ -7,13 +7,17 @@ class Login extends React.Component {
             <div className="bodyContent">
                 <div className="divCompleteForm">
                     <div className="divTituloForm">
-                        <h2>Log in to TodoNow</h2>
+                        <h2>Create account in TodoNow</h2>
                     </div>
                     <div className="divForm">
-                        <form action="http://localhost:3001/login" method="POST">
-                            <div className="inputEmailOrNick individualInput">
+                        <form action="signup" method="POST">
+                            <div className="inputNick individualInput">
+                                <i className="fa-2x fas fa-user"></i>
+                                <input type="text" name="nick" id="nick" placeholder="Username" />
+                            </div>
+                            <div className="inputEmail individualInput">
                                 <i className="fa-2x fas fa-at"></i>
-                                <input type="text" name="emailornick" id="emailornick" placeholder="Email or Username" />
+                                <input type="text" name="email" id="email" placeholder="Email" />
                             </div>
                             <div className="inputPassword individualInput">
                                 <i className="fa-2x fas fa-key"></i>
@@ -22,10 +26,10 @@ class Login extends React.Component {
                             <div className="divError">
                                 All fields must be filled
                             </div>
-                            <button type="submit">Log in</button>
+                            <button type="submit">Create</button>
                         </form>
                         <div className="changeForm">
-                            <p>New to TodoNow? <Link to="/signup">Create new account</Link></p>
+                            <p>Already have an account? <Link to="/login">Log in</Link></p>
                         </div>
                     </div>
                 </div>
