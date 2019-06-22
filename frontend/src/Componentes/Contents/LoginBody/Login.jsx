@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+//Importamos los settings
+import settings from '../../../config/settings';
+
 class Login extends React.Component {
     render() {
         return (
@@ -10,7 +13,7 @@ class Login extends React.Component {
                         <h2>Log in to TodoNow</h2>
                     </div>
                     <div className="divForm">
-                        <form action="http://localhost:3001/login" method="POST">
+                        <form action={`${settings.backend.host_backend}${settings.backend.port_backend}/login`} method="POST">
                             <div className="inputEmailOrNick individualInput">
                                 <i className="fa-2x fas fa-at"></i>
                                 <input type="text" name="emailornick" id="emailornick" placeholder="Email or Username" />

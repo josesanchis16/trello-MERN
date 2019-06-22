@@ -15,14 +15,6 @@ const userSchema = new mongoose.Schema({
         trim: true,
         required: true,
         unique: true,
-        // validate: function (email) {
-        //     return new Promise(function (resolve) {
-        //         setTimeout(function () {
-        //             resolve(isEmail(email));
-        //         }, 5);
-        //     })
-
-        // }
     },
     password: {
         type: String,
@@ -36,8 +28,13 @@ const userSchema = new mongoose.Schema({
         lastname: {
             type: String,
         },
-        avatar: String,
-        confirmedEmail: Boolean,
+        avatar: {
+            type: String
+        },
+        confirmedEmail: {
+            type: Boolean,
+            default: false
+        },
     }
 }, {
     timestamps: true
@@ -95,6 +92,14 @@ userSchema.pre('save', function (next) {
 //     }, SECRET_AUTH_JWT);
 //     return token;
 // }
+
+userSchema.index({
+    nick: 1,
+    email: 1,
+    password: 1,
+}, {
+    unique: true,
+});
 
 const UserModel = mongoose.model("User", userSchema);
 module.exports = UserModel;

@@ -16,16 +16,18 @@ router.get('/', function (req, res, next) {
 
 //Registrar un nuevo usuario
 router.post('/signup', function (req, res, next) {
+  console.log(req.body);
   new UserModel({
       ...req.body,
       info: {
         //Anadimos el avatar por defecto
-        avatar: `https://api.adorable.io/avatars/150/${req.body.email}`,
+        avatar: `https://api.adorable.io/avatars/150/${req.body.email}${new Date()}`,
       }
     }).save()
     .then(user => {
       res.send(user);
     })
+    .catch(console.log);
 })
 
 //Iniciar sesion con un usuario existente
