@@ -83,8 +83,10 @@
 }
 
 .divError {
-    height: 40px;
+    height: 75px;
     justify-content: center;
     align-items: center;
     display: flex;
+    width: 435px;
+    text-align: center;
 }

@@ -21,7 +21,7 @@ router.post('/signup', function (req, res, next) {
       ...req.body,
       info: {
         //Anadimos el avatar por defecto
-        avatar: `https://api.adorable.io/avatars/150/${req.body.email}${new Date()}`,
+        avatar: `https://api.adorable.io/avatars/150/${req.body.email}`,
       }
     }).save()
     .then(user => {

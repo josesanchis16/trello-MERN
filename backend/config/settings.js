@@ -1,6 +1,6 @@
 const settings = {
     port: "3001",
-    bbdd_name : "pruebaBackend"
+    bbdd_name : "todonowBBDD"
 }
 
 module.exports = settings;
