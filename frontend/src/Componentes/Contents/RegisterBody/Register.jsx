@@ -136,6 +136,9 @@ class Login extends React.Component {
             case '222':
                 await this.setState({ errorMsg: 'Username must be at least 2 characters and Password 8, Email must be a valid Email' })
                 break;
+            default:
+                await this.setState({ errorMsg: 'Unexpected error' });
+                break;
         }
     }
 
@@ -173,15 +176,15 @@ class Login extends React.Component {
                     </div>
                     <div className="divForm">
                         <form onSubmit={this.handleSubmit}>
-                            <div className="inputNick individualInput" style={{ background: this.state.errorNick === '0' ? '#eee' : '#ff7575', border: '2px solid ' + (this.state.errorNick === '0' ? 'none' : '#f00') }}>
+                            <div className="inputNick individualInput" style={{ background: this.state.errorNick === '0' ? '#eee' : '#ff7575', border: (this.state.errorNick === '0' ? 'none' : '2px solid #f00') }}>
                                 <i className="fa-2x fas fa-user"></i>
                                 <input type="text" name="nick" id="nick" placeholder="Username" onChange={this.handleChange} />
                             </div>
-                            <div className="inputEmail individualInput" style={{ background: this.state.errorEmail === '0' ? '#eee' : '#ff7575', border: '2px solid ' + (this.state.errorEmail === '0' ? 'none' : '#f00') }}>
+                            <div className="inputEmail individualInput" style={{ background: this.state.errorEmail === '0' ? '#eee' : '#ff7575', border: (this.state.errorEmail === '0' ? 'none' : '2px solid #f00') }}>
                                 <i className="fa-2x fas fa-at"></i>
                                 <input type="text" name="email" id="email" placeholder="Email" onChange={this.handleChange} />
                             </div>
-                            <div className="inputPassword individualInput" style={{ background: this.state.errorPassword === '0' ? '#eee' : '#ff7575', border: '2px solid ' + (this.state.errorPassword === '0' ? 'none' : '#f00') }}>
+                            <div className="inputPassword individualInput" style={{ background: this.state.errorPassword === '0' ? '#eee' : '#ff7575', border: (this.state.errorPassword === '0' ? 'none' : '2px solid #f00') }}>
                                 <i className="fa-2x fas fa-key"></i>
                                 <input type="password" name="password" id="password" placeholder="Password" onChange={this.handleChange} />
                             </div>

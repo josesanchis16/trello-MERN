@@ -73,6 +73,9 @@ class Login extends React.Component {
             case '22':
                 await this.setState({ errorMsg: 'Email must be a valid Email and Password must be at least 8 characters' })
                 break;
+            default:
+                await this.setState({ errorMsg: 'Unexpected error' });
+                break;
         }
     }
 

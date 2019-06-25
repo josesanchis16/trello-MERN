@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 
 //Importacion de componentes
-import Botones_no_login from '../../Botoneras/Botones_no_login/Botones_no_login';
+import BotonesNoLogin from '../../Botoneras/Botones_no_login/Botones_no_login';
 
 //Importacion de estilos
 import './Header.css';
@@ -20,7 +20,7 @@ class Header extends React.Component {
                 <div className="menuUser">
                     {/* Mostramos una cosa u otra dependiendo de si el usuario esta logueado o no */}
                     {/* Para saber esto debemos leer el token en el localhost */}
-                    <Botones_no_login />
+                    <BotonesNoLogin />
                 </div>
             </header>
         )
