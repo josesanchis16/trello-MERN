@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 //Importamos los settings
 import settings from '../../../config/settings';
 
-class Login extends React.Component {
+class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,7 +16,8 @@ class Login extends React.Component {
             errorNick: '0',
             errorEmail: '0',
             errorPassword: '0',
-            errorMsg: ''
+            errorMsg: '',
+            backendInfo: '',
         }
     }
 
@@ -35,7 +36,9 @@ class Login extends React.Component {
                     email,
                     password
                 })
-                this.setState({ backendInfo: res.data.info });
+                await this.setState({ backendInfo: res.data });
+                await localStorage.setItem('loginToken', this.state.backendInfo.tokens.filter(token => token.for === 'login')[0].token);
+                console.log('Token Guardado');
             } else {
                 console.log('mec');
             }
@@ -169,8 +172,7 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div className="bodyContent">
-                <div className="divCompleteForm">
+                <div className="divInnerWindow">
                     <div className="divTituloForm">
                         <h2>Create account in TodoNow</h2>
                     </div>
@@ -198,9 +200,8 @@ class Login extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
         )
     }
 }
 
-export default Login;
+export default Register;

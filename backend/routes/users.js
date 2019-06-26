@@ -3,6 +3,8 @@ require('../config/mongoose');
 
 var express = require('express');
 var router = express.Router();
+var jwt = require('jsonwebtoken');
+var SECRET_AUTH_JWT = require('../config/settings').SECRET_AUTH_JWT;
 
 //Importamos el modelo para poderlo utilizar a la hora de manejar datos con mongo
 const UserModel = require('../models/User');
@@ -14,5 +16,20 @@ router.get('/getAll', function (req, res, next) {
       res.send(users);
     })
 });
+
+router.post('/getUser', function (req, res, next) {
+  try {
+    const token = jwt.verify(req.body.token, SECRET_AUTH_JWT);
+    UserModel.findOne({
+        _id: token._id,
+      })
+      .then(user => {
+        res.send(user);
+      })
+  } catch (e) {
+    console.log(e);
+    res.status(501).send(e);
+  }
+})
 
 module.exports = router;

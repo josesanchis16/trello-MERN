@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
-// const SECRET_AUTH_JWT = require('../config/password').SECRET_AUTH_JWT;
+const jwt = require('jsonwebtoken');
+const SECRET_AUTH_JWT = require('../config/settings').SECRET_AUTH_JWT;
 // const {isEmail} = require('validator');
 
 const userSchema = new mongoose.Schema({
@@ -35,7 +35,8 @@ const userSchema = new mongoose.Schema({
             type: Boolean,
             default: false
         },
-    }
+    },
+    tokens: []
 }, {
     timestamps: true
 })
@@ -85,21 +86,13 @@ userSchema.pre('save', function (next) {
 //     };
 // }
 
-// userSchema.methods.generateAuthToken = function () {
-//     const user = this;
-//     const token = jwt.sign({
-//         _id: user._id
-//     }, SECRET_AUTH_JWT);
-//     return token;
-// }
-
-userSchema.index({
-    nick: 1,
-    email: 1,
-    password: 1,
-}, {
-    unique: true,
-});
+userSchema.methods.generateAuthToken = function () {
+    const user = this;
+    const token = jwt.sign({
+        _id: user._id
+    }, SECRET_AUTH_JWT);
+    return token;
+}
 
 const UserModel = mongoose.model("User", userSchema);
 module.exports = UserModel;

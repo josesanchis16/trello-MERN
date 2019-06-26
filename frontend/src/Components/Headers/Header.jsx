@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 
 //Importacion de componentes
-import BotonesNoLogin from '../../Botoneras/Botones_no_login/Botones_no_login';
+import BotonesNoLogin from '../Botoneras/BotonesNoUser/BotonesNoUser';
 
 //Importacion de estilos
 import './Header.css';

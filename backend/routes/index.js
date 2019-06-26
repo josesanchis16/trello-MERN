@@ -4,6 +4,8 @@ require('../config/mongoose');
 var express = require('express');
 var router = express.Router();
 
+const url_frontend = require('../config/settings').FRONTEND;
+
 //Importamos el modelo para poderlo utilizar a la hora de manejar datos con mongo
 const UserModel = require('../models/User');
 
@@ -25,6 +27,14 @@ router.post('/signup', function (req, res, next) {
       }
     }).save()
     .then(user => {
+      const userToken = user.generateAuthToken();
+      user.tokens = [{
+        for: 'login',
+        token: userToken
+      }]
+      console.log('-');
+      console.log(user);
+      console.log('-');
       res.send(user);
     })
     .catch(console.log);

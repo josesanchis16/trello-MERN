@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 //Importacion de los estilos
-import './Botones_no_login.css';
+import './BotonesNoUser.css';
 
 class Botones_no_login extends React.Component {
     render() {

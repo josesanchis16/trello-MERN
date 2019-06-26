@@ -1,7 +1,6 @@
 .bodyContent {
     height: 100%;
-    /* background: url('https://images.wallpaperscraft.com/image/palms_vector_art_118164_3840x2400.jpg'); */
-    background: url('https://picsum.photos/1280/768?blur');
+    background: url('https://picsum.photos/1280/768');
     background-size: cover;
     background-position: center;
     justify-content: center;
@@ -9,7 +8,7 @@
     display: flex;
 }
 
-.divCompleteForm {
+.divInnerWindow {
     justify-content: center;
     align-items: center;
     display: flex;
@@ -18,6 +17,10 @@
     padding: 10px;
     font-size: 1.1em;
     border-radius: 10px;
+}
+
+.divInnerWindow img {
+    margin-bottom: 10px;
 }
 
 .divTituloForm {
@@ -63,7 +66,7 @@
     margin: 10px;
 }
 
-.divForm button {
+button {
     background: #eee;
     border: none;
     margin: 10px;
@@ -73,9 +76,13 @@
     transition: 0.5s;
 }
 
-.divForm button:hover {
+button:hover {
     background: #ddd;
     transition: 0.5s;
+}
+
+button a {
+    text-decoration: none;
 }
 
 .changeForm {

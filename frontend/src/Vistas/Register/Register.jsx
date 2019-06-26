@@ -1,18 +1,20 @@
 import React from 'react';
 
 //Importacion de componentes
-import Header from '../../Componentes/Headers/HeaderFrom/Header';
-import RegisterBody from '../../Componentes/Contents/RegisterBody/Register';
+import Header from '../../Components/Headers/Header';
+import RegisterBody from '../../Components/Contents/RegisterForm/Register';
 
-class Login extends React.Component {
+class Register extends React.Component {
     render() {
         return (
             <div className="page">
                 <Header />
-                <RegisterBody />
+                <dir className="bodyContent">
+                    <RegisterBody />
+                </dir>
             </div>
         )
     }
 }
 
-export default Login;
+export default Register;
