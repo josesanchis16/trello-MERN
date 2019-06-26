@@ -10,7 +10,7 @@ class Login extends React.Component {
             <div className="page">
                 <Header />
                 <div className="bodyContent">
-                    <LoginForm />
+                    <LoginForm history={this.props.history} />
                 </div>
             </div>
         )

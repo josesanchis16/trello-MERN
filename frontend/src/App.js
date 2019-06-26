@@ -15,27 +15,37 @@ import Register from './Vistas/Register/Register';
 
 //Importacion de estilos
 import './App.css';
-import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      user: ''
+    }
   }
 
   async componentDidMount() {
     const token = localStorage.getItem('loginToken');
-    const res = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/users/getUser`, {
-      token
-    })
-    console.log(res.data);
-    try {
-      const action = {
-        type: 'LOGINTOKEN',
-        payload: res.data
+    if (token){
+      const res = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/users/getUser`, {
+        token
+      })
+
+      await this.setState({
+        user: res.data,
+      })
+      console.log(this.state);
+
+      
+      try {
+        const action = {
+          type: 'LOGINTOKEN',
+          payload: res.data
+        }
+        store.dispatch(action);
+      } catch (e) {
+        console.log(e);
       }
-      store.dispatch(action);
-    } catch (e) {
-      console.log(e);
     }
   }
 

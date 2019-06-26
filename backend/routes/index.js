@@ -32,9 +32,7 @@ router.post('/signup', function (req, res, next) {
         for: 'login',
         token: userToken
       }]
-      console.log('-');
       console.log(user);
-      console.log('-');
       res.send(user);
     })
     .catch(console.log);
@@ -44,15 +42,15 @@ router.post('/signup', function (req, res, next) {
 router.post('/login', function (req, res, next) {
 
   UserModel.findOne({
-      $or: [{
-          "email": req.body.emailornick
-        },
-        {
-          "nick": req.body.emailornick
-        }
-      ]
+      "email": req.body.email
     })
     .then(user => {
+      const userToken = user.generateAuthToken();
+      user.tokens = [{
+        for: 'login',
+        token: userToken
+      }]
+      console.log(user);
       res.send(user);
     })
 });

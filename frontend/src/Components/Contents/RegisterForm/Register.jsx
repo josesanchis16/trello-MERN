@@ -37,8 +37,12 @@ class Register extends React.Component {
                     password
                 })
                 await this.setState({ backendInfo: res.data });
-                await localStorage.setItem('loginToken', this.state.backendInfo.tokens.filter(token => token.for === 'login')[0].token);
-                console.log('Token Guardado');
+                if (this.state.backendInfo !== '') {
+                    await localStorage.setItem('loginToken', this.state.backendInfo.tokens.filter(token => token.for === 'login')[0].token);
+                    console.log('Token Guardado');
+                } else {
+                    console.log(this.state);
+                }
             } else {
                 console.log('mec');
             }
@@ -172,34 +176,34 @@ class Register extends React.Component {
 
     render() {
         return (
-                <div className="divInnerWindow">
-                    <div className="divTituloForm">
-                        <h2>Create account in TodoNow</h2>
-                    </div>
-                    <div className="divForm">
-                        <form onSubmit={this.handleSubmit}>
-                            <div className="inputNick individualInput" style={{ background: this.state.errorNick === '0' ? '#eee' : '#ff7575', border: (this.state.errorNick === '0' ? 'none' : '2px solid #f00') }}>
-                                <i className="fa-2x fas fa-user"></i>
-                                <input type="text" name="nick" id="nick" placeholder="Username" onChange={this.handleChange} />
-                            </div>
-                            <div className="inputEmail individualInput" style={{ background: this.state.errorEmail === '0' ? '#eee' : '#ff7575', border: (this.state.errorEmail === '0' ? 'none' : '2px solid #f00') }}>
-                                <i className="fa-2x fas fa-at"></i>
-                                <input type="text" name="email" id="email" placeholder="Email" onChange={this.handleChange} />
-                            </div>
-                            <div className="inputPassword individualInput" style={{ background: this.state.errorPassword === '0' ? '#eee' : '#ff7575', border: (this.state.errorPassword === '0' ? 'none' : '2px solid #f00') }}>
-                                <i className="fa-2x fas fa-key"></i>
-                                <input type="password" name="password" id="password" placeholder="Password" onChange={this.handleChange} />
-                            </div>
-                            <div className="divError">
-                                {this.state.errorMsg}
-                            </div>
-                            <button type="submit">Create</button>
-                        </form>
-                        <div className="changeForm">
-                            <p>Already have an account? <Link to="/login">Log in</Link></p>
+            <div className="divInnerWindow">
+                <div className="divTituloForm">
+                    <h2>Create account in TodoNow</h2>
+                </div>
+                <div className="divForm">
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="inputNick individualInput" style={{ background: this.state.errorNick === '0' ? '#eee' : '#ff7575', border: (this.state.errorNick === '0' ? 'none' : '2px solid #f00') }}>
+                            <i className="fa-2x fas fa-user"></i>
+                            <input type="text" name="nick" id="nick" placeholder="Username" onChange={this.handleChange} />
                         </div>
+                        <div className="inputEmail individualInput" style={{ background: this.state.errorEmail === '0' ? '#eee' : '#ff7575', border: (this.state.errorEmail === '0' ? 'none' : '2px solid #f00') }}>
+                            <i className="fa-2x fas fa-at"></i>
+                            <input type="text" name="email" id="email" placeholder="Email" onChange={this.handleChange} />
+                        </div>
+                        <div className="inputPassword individualInput" style={{ background: this.state.errorPassword === '0' ? '#eee' : '#ff7575', border: (this.state.errorPassword === '0' ? 'none' : '2px solid #f00') }}>
+                            <i className="fa-2x fas fa-key"></i>
+                            <input type="password" name="password" id="password" placeholder="Password" onChange={this.handleChange} />
+                        </div>
+                        <div className="divError">
+                            {this.state.errorMsg}
+                        </div>
+                        <button type="submit">Create</button>
+                    </form>
+                    <div className="changeForm">
+                        <p>Already have an account? <Link to="/login">Log in</Link></p>
                     </div>
                 </div>
+            </div>
         )
     }
 }

@@ -31,7 +31,15 @@ class Login extends React.Component {
                     email,
                     password
                 })
-                this.setState({ backendInfo: res.data });
+                await this.setState({ backendInfo: res.data });
+                if (this.state.backendInfo !== '') {
+                    await localStorage.setItem('loginToken', this.state.backendInfo.tokens.filter(token => token.for === 'login')[0].token);
+                    console.log('Token Guardado');
+                    this.props.history.push('/');
+                } else {
+                    await this.setState({ errorMsg: 'Email or Password is wrong' })
+                    console.log(this.state);
+                }
             }
         }
         catch (error) {
