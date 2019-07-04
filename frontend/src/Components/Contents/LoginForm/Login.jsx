@@ -4,6 +4,7 @@ import { isEmail } from 'validator';
 
 import { Link } from 'react-router-dom';
 
+import store from '../../../config/redux/store';
 //Importamos los settings
 import settings from '../../../config/settings';
 
@@ -34,6 +35,15 @@ class Login extends React.Component {
                 await this.setState({ backendInfo: res.data });
                 if (this.state.backendInfo !== '') {
                     await localStorage.setItem('loginToken', this.state.backendInfo.tokens.filter(token => token.for === 'login')[0].token);
+                    try {
+                        const action = {
+                            type: 'LOGINTOKEN',
+                            payload: res.data
+                        }
+                        store.dispatch(action);
+                    } catch (e) {
+                        console.log(e);
+                    }
                     console.log('Token Guardado');
                     this.props.history.push('/');
                 } else {

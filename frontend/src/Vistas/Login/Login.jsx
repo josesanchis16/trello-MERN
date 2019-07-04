@@ -5,6 +5,7 @@ import Header from '../../Components/Headers/Header';
 import LoginForm from '../../Components/Contents/LoginForm/Login';
 
 class Login extends React.Component {
+
     render() {
         return (
             <div className="page">
@@ -16,5 +17,4 @@ class Login extends React.Component {
         )
     }
 }
-
 export default Login;

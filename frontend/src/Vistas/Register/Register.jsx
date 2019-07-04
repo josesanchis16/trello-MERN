@@ -10,7 +10,7 @@ class Register extends React.Component {
             <div className="page">
                 <Header />
                 <dir className="bodyContent">
-                    <RegisterBody />
+                    <RegisterBody history={this.props.history}/>
                 </dir>
             </div>
         )

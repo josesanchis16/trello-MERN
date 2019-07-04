@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
-const settings = require('./settings').BACKEND;
+const settings = require('./settings').MONGODB;
 //conexión a la base de datos MongoDB CounterDB
-mongoose.connect(`mongodb://localhost:27017/${settings.bbdd_name}`, {
+mongoose.connect(`mongodb://${settings.bbdd_url}:${settings.bbdd_port}/${settings.bbdd_name}`, {
         useCreateIndex: true,
         useNewUrlParser: true
     })

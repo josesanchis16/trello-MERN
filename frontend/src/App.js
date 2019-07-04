@@ -36,7 +36,6 @@ class App extends React.Component {
       })
       console.log(this.state);
 
-      
       try {
         const action = {
           type: 'LOGINTOKEN',

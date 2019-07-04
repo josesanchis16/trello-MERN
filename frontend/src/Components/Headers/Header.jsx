@@ -14,7 +14,6 @@ class Header extends React.Component {
         this.state = {
             user: this.props.user,
         }
-        console.log('El usuario desde el header',this.state.user);
     }
 
     render() {

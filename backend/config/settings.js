@@ -1,7 +1,12 @@
 const settings = {
+    MONGODB: {
+        bbdd_url: '192.168.0.109',
+        bbdd_name: "todonowBBDD",
+        bbdd_port: '27017'
+    },
     BACKEND: {
+        url: "localhost",
         port: "3001",
-        bbdd_name: "todonowBBDD"
     },
     FRONTEND: {
         port: "3000",
