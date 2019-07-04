@@ -1,32 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
-//Importamos los settings
-import settings from '../../config/settings';
-
 //Importacion de componentes
 import BotonesNoLogin from '../Botoneras/BotonesNoUser/BotonesNoUser';
 import BotonesLogin from '../Botoneras/BotonesUser/BotonesUser';
 
 //Importacion de estilos
 import './Header.css';
-import axios from 'axios';
 
 class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: ''
+            user: this.props.user,
         }
-    }
-
-    async componentDidMount() {
-        let userToken = localStorage.getItem('loginToken');
-        let user = await axios.get(`${settings.backend.host_backend}${settings.backend.port_backend}/getUserFromToken/${userToken}`);
-        await this.setState({
-            user: user
-        })
-        console.log('Esto es el usuario: ' + user);
+        console.log('El usuario desde el header',this.state.user);
     }
 
     render() {
