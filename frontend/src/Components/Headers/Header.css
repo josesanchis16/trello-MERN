@@ -9,6 +9,9 @@ header {
 .btnHome {
     padding: 5px;
     transition: 1s;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
 }
 
 .btnHome a {
@@ -20,10 +23,9 @@ header {
     color: #c5c5c5;
 }
 
-.btnHome,
 .menuUser {
     width: 200px;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     display: flex;
 }

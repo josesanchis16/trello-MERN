@@ -1,0 +1,30 @@
+.btnImagen {
+    background: red;
+    position: relative;
+}
+
+.btnImagen img {
+    border: 2px solid #454545;
+    border-radius: 50%;
+    width: 50px;
+}
+
+.backgroundList{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.menuDesplegable {
+    position: absolute;
+}
+
+.menuDesplegable ul {
+    list-style: none;
+}
+
+.menuDesplegable ul li{
+    background: green;
+}
