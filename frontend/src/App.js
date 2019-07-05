@@ -12,6 +12,7 @@ import store from './config/redux/store';
 import Index from './Vistas/Index/Index';
 import Login from './Vistas/Login/Login';
 import Register from './Vistas/Register/Register';
+import Boards from './Vistas/Boards/Boards';
 
 //Importacion de estilos
 import './App.css';
@@ -35,7 +36,6 @@ class App extends React.Component {
         user: res.data,
       })
       console.log(this.state);
-
       try {
         const action = {
           type: 'LOGINTOKEN',
@@ -53,6 +53,7 @@ class App extends React.Component {
       <Router>
         <Switch>
           <Route path="/" exact component={Index} />
+          <Route path="/boards" exact component={Boards}/>
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Register} />
           {/* <Route path="*" component={} /> */}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
 //Importamos los estilos
 import './BotonesUser.css';
@@ -7,10 +8,9 @@ class BotonesUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: this.props.user,
             menuShow: false,
         }
-        console.log(this.state.user);
+        console.log(this.props.user);
     }
 
     clickBackgroundMenu = async () => {
@@ -19,16 +19,26 @@ class BotonesUser extends React.Component {
         })
     }
 
+    logout = () => {
+        localStorage.removeItem('loginToken');
+        localStorage.removeItem('redux_localstorage_simple');
+        window.location.href = "/";
+        console.log('mec')
+    }
+
     render() {
         return (
             <div className="menuImagen">
                 <div className="backgroundList" onClick={this.clickBackgroundMenu} style={{ 'display': this.state.menuShow ? 'block' : 'none' }}></div>
                 <div className="btnImagen">
-                    <img src={this.state.user.info.avatar} onClick={this.clickBackgroundMenu} alt="avatar" />
+                    <img src={this.props.user.info.avatar} onClick={this.clickBackgroundMenu} alt="avatar" />
                     <div className="menuDesplegable" style={{ 'display': this.state.menuShow ? 'block' : 'none' }}>
                         <ul className="lista">
-                            <li className="btnPerfil">Perfil</li>
-                            <li className="btnLogout">Logout</li>
+                            <li className="static">{this.props.user.nick}</li>
+                            <hr />
+                            <li className="btnPerfil btn">Profile</li>
+                            <hr />
+                            <li onClick={this.logout} className="btnLogout btn">Logout</li>
                         </ul>
                     </div>
                 </div>
@@ -37,4 +47,10 @@ class BotonesUser extends React.Component {
     }
 }
 
-export default BotonesUser;
+const mapStateToProps = state => {
+    return {
+        user: state.userReducer.loginToken
+    };
+};
+
+export default connect(mapStateToProps)(BotonesUser);

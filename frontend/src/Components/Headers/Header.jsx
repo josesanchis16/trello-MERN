@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
+import { connect } from 'react-redux';
+
 //Importacion de componentes
 import BotonesNoLogin from '../Botoneras/BotonesNoUser/BotonesNoUser';
 import BotonesLogin from '../Botoneras/BotonesUser/BotonesUser';
@@ -11,9 +13,6 @@ import './Header.css';
 class Header extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            user: this.props.user,
-        }
     }
 
     render() {
@@ -26,10 +25,17 @@ class Header extends React.Component {
                     <img src="https://img.icons8.com/color/48/000000/carpet-man.png" alt="icon" />
                 </div>
                 <div className="menuUser">
-                    {this.state.user ? <BotonesLogin user={this.state.user} /> : <BotonesNoLogin />}
+                    {this.props.user ? <BotonesLogin history={this.props.history} /> : <BotonesNoLogin />}
                 </div>
             </header>
         )
     }
 }
-export default Header;
+
+const mapStateToProps = state => {
+    return {
+        user: state.userReducer.loginToken
+    };
+};
+
+export default connect(mapStateToProps)(Header);

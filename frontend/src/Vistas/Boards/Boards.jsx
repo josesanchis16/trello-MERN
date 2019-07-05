@@ -7,14 +7,11 @@ import Header from '../../Components/Headers/Header';
 import IndexContent from '../../Components/Contents/Index/Index';
 import BoardsContent from '../../Components/Contents/Boards/Boards';
 
-//Importacion de estilos
-import './Index.css';
-
-class Index extends React.Component {
+class Boards extends React.Component {
 
     componentDidMount() {
-        if (this.props.user) {
-            this.props.history.push('/boards');
+        if (!this.props.user) {
+            this.props.history.push('/');
         }
     }
 
@@ -22,7 +19,7 @@ class Index extends React.Component {
         return (
             <div className="page">
                 <Header history={this.props.history} />
-                {this.props.user ? <Link to="/boards" /> : <IndexContent />}
+                <BoardsContent />
             </div>
         )
     }
@@ -34,4 +31,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(Index);
+export default connect(mapStateToProps)(Boards);
