@@ -42,18 +42,29 @@ router.post('/signup', function (req, res, next) {
 
 //Iniciar sesion con un usuario existente
 router.post('/login', function (req, res, next) {
+  let pass = req.body.password;
+  console.log(pass);
+  // let pass = jwt.verify(req.body.password, SECRET_AUTH_JWT);
+
 
   UserModel.findOne({
-      "email": req.body.email
+      "email": req.body.email,
     })
     .then(user => {
-      const userToken = user.generateAuthToken();
-      user.tokens = [{
-        for: 'login',
-        token: userToken
-      }]
-      console.log(user);
-      res.send(user);
+      user.comparePassword(pass, function (error, isMatch) {
+        if (isMatch && !error) {
+          const userToken = user.generateAuthToken();
+          user.tokens = [{
+            for: 'login',
+            token: userToken
+          }]
+          console.log(user);
+          res.send(user);
+        } else {
+          console.log('Error de autentificacion');
+          res.send('wrong Email or password')
+        }
+      });
     })
 });
 
@@ -64,12 +75,12 @@ router.get('/getUserFromToken/:token', function (req, res, next) {
   let token = req.params.token;
   let user = jwt.verify(token, SECRET_AUTH_JWT);
   UserModel.findOne({
-    _id: user._id,
-  }).then(completeUser => {
-    console.log(completeUser);
-    res.send(completeUser);
-  })
-  .catch(err => {
-    console.log();
-  });
+      _id: user._id,
+    }).then(completeUser => {
+      console.log(completeUser);
+      res.send(completeUser);
+    })
+    .catch(err => {
+      console.log();
+    });
 })
