@@ -36,7 +36,8 @@ const userSchema = new mongoose.Schema({
             default: false
         },
     },
-    tokens: []
+    tokens: [],
+    boards: [],
 }, {
     timestamps: true
 })
@@ -91,6 +92,12 @@ userSchema.methods.generateAuthToken = function () {
     const token = jwt.sign({
         _id: user._id
     }, SECRET_AUTH_JWT);
+    return token;
+}
+
+userSchema.methods.generateBoardToken = function (board) {
+    const token = jwt.sign(board, SECRET_AUTH_JWT);
+    console.log(token);
     return token;
 }
 

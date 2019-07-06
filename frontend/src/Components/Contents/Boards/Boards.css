@@ -1,0 +1,27 @@
+.BoardsContent {
+    padding: 50px;
+}
+
+.divBoards {
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.board {
+    margin: 10px auto;
+    background: #eee;
+    border-radius: 5px;
+    height: 100px;
+    width: 250px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    transition: 0.5s;
+}
+
+.board:hover{
+    box-shadow: 0 0 10px 0 #454545;
+    transition: 0.3s;
+}

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 //Importacion de componentes
 import Header from '../../Components/Headers/Header';
 import IndexContent from '../../Components/Contents/Index/Index';
-import BoardsContent from '../../Components/Contents/Boards/Boards';
 
 //Importacion de estilos
 import './Index.css';

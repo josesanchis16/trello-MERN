@@ -22,12 +22,12 @@ router.get('/', function (req, res, next) {
 router.post('/signup', function (req, res, next) {
   console.log(req.body);
   new UserModel({
-      ...req.body,
-      info: {
-        //Anadimos el avatar por defecto
-        avatar: `https://api.adorable.io/avatars/150/${req.body.email}`,
-      }
-    }).save()
+    ...req.body,
+    info: {
+      //Anadimos el avatar por defecto
+      avatar: `https://api.adorable.io/avatars/150/${req.body.email}`,
+    }
+  }).save()
     .then(user => {
       const userToken = user.generateAuthToken();
       user.tokens = [{
@@ -48,8 +48,8 @@ router.post('/login', function (req, res, next) {
 
 
   UserModel.findOne({
-      "email": req.body.email,
-    })
+    "email": req.body.email,
+  })
     .then(user => {
       user.comparePassword(pass, function (error, isMatch) {
         if (isMatch && !error) {
@@ -75,12 +75,24 @@ router.get('/getUserFromToken/:token', function (req, res, next) {
   let token = req.params.token;
   let user = jwt.verify(token, SECRET_AUTH_JWT);
   UserModel.findOne({
-      _id: user._id,
-    }).then(completeUser => {
-      console.log(completeUser);
-      res.send(completeUser);
-    })
+    _id: user._id,
+  }).then(completeUser => {
+    console.log(completeUser);
+    res.send(completeUser);
+  })
     .catch(err => {
       console.log();
     });
 })
+
+router.post('/addBoard/:id', function (req, res, next) {
+  const user = req.params.id;
+  const boardName = req.body.boardName;
+  UserModel.findOne({
+    _id: user
+  })
+    .then(user => {
+      console.log(`-${user}-`)
+      console.log(`-${boardName}-`);
+    })
+});

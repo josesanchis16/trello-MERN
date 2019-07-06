@@ -12,6 +12,7 @@ header {
     justify-content: flex-start;
     align-items: center;
     display: flex;
+    width: 190px;
 }
 
 .btnHome a {

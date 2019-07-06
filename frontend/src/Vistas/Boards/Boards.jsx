@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 //Importacion de componentes
 import Header from '../../Components/Headers/Header';
-import IndexContent from '../../Components/Contents/Index/Index';
 import BoardsContent from '../../Components/Contents/Boards/Boards';
 
 class Boards extends React.Component {
@@ -19,7 +17,7 @@ class Boards extends React.Component {
         return (
             <div className="page">
                 <Header history={this.props.history} />
-                <BoardsContent />
+                <BoardsContent/>
             </div>
         )
     }
