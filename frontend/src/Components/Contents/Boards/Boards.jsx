@@ -28,27 +28,11 @@ class Boards extends React.Component {
     newBoard = async () => {
         await this.setState({
             showDivNewBoard: true,
-        })
-
-        // const boardName = this.state.boardName;
-        // await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/addBoard/${this.props.user._id}`, {
-        //     boardName
-        // })
-        //     .then(res => {
-        //         console.log(res);
-        //         // try {
-        //         //     const action = {
-        //         //         type: 'NEWBOARD',
-        //         //         payload: res.data
-        //         //     }
-        //         //     store.dispatch(action);
-        //         // } catch (e) {
-        //         //     console.log(e);
-        //         // }
-        //     });
+        });
+        this.boardName.current.focus();
     }
 
-    btnAceptar = async () => {
+    actAceptar = async () => {
         const name = this.state.actualBoardName;
         const background = this.state.actualBoardColor;
 
@@ -76,7 +60,7 @@ class Boards extends React.Component {
         const backColor = board.background;
         await this.setState({
             boards: [
-                <div style={{background: backColor}} className="board" key={board.id}>
+                <div style={{ background: backColor }} className="board" key={board.id}>
                     <p>{nombre}</p>
                 </div>,
                 ...this.state.boards,
@@ -85,6 +69,7 @@ class Boards extends React.Component {
 
         await this.setState({
             showDivNewBoard: false,
+            actualBoardColor: '#eee',
         });
         this.clearLastInput();
     }
@@ -162,7 +147,7 @@ class Boards extends React.Component {
                         </div>
                         <hr />
                         <div className="divBotonAceptar">
-                            <p onClick={this.btnAceptar}>Aceptar</p>
+                            <p onClick={this.actAceptar}>Aceptar</p>
                         </div>
                     </div>
                 </div>

@@ -118,6 +118,7 @@
     border-radius: 5px;
     padding: 10px;
     height: 100%;
+    justify-content: center;
 }
 
 .board {
