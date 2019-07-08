@@ -5,8 +5,13 @@ function userReducer(state = {}, action) {
                 ...state,
                 loginToken: action.payload
             };
+            case 'NEWBOARD':
+                return {
+                    ...state,
+                    
+                }
         default:
-            return state
+            return state;
     }
 }
 

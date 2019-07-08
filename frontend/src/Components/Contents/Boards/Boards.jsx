@@ -15,12 +15,44 @@ class Boards extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            boardName: 'hola',
+            actualBoardName: '',
+            actualBoardColor: '',
             showDivNewBoard: true,
             creationDivShow: true,
+            boards: [],
         }
+        this.list = React.createRef();
     }
+
+
     newBoard = async () => {
+        console.log(this.props.user);
+        const board = {
+            id: new Date().getTime(),
+            name: this.state.boardName,
+            background: this.state.boardColor,
+            stared: false,
+            people: [],
+            listas: [],
+            descripcion: '',
+            labels: [],
+        }
+
+        this.props.user.boards = [
+            ...this.props.user.boards,
+            board
+        ]
+
+        await this.setState({
+            boards: [
+                ...this.state.boards,
+                <div className="board">
+                    <p>{board.name}</p>
+                </div>
+            ]
+        })
+
+        console.log(this.state.boards);
         // console.log(this.props);
 
         // const boardName = this.state.boardName;
@@ -43,11 +75,27 @@ class Boards extends React.Component {
 
     cerrarBoardCreation = async () => {
         await this.setState({
-            showDivNewBoard : !this.state.showDivNewBoard,
+            showDivNewBoard: !this.state.showDivNewBoard,
         })
     }
 
-    handleChange = async (event) => await this.setState({ [event.target.name]: event.target.value });
+    handleChange = async (event) => {
+        await this.setState({ [event.target.name]: event.target.value });
+        console.log(this.state);
+    }
+
+    handleColor = async (event) => {
+        let childNodesLength = this.list.current.childNodes;
+        for (let child of childNodesLength) {
+            child.classList.remove('colorSelected');
+        }
+        event.target.classList.add('colorSelected');
+        console.log(event.target.background);
+        await this.setState({
+            actualBoardColor: event.target.background
+        });
+        console.log(this.state);
+    }
 
     render() {
         return (
@@ -56,31 +104,21 @@ class Boards extends React.Component {
                     <div className="cerrarBoardCreation" onClick={this.cerrarBoardCreation}></div>
                     <div className="divBoardCreation">
                         <div className="btnCerrar" onClick={this.cerrarBoardCreation}>
-                            <i class="fas fa-times"></i>
+                            <i className="fas fa-times"></i>
                         </div>
                         <div className="divName">
                             <p>Board name:</p>
-                            <input type="text" />
+                            <input type="text" name='actualBoardName' onChange={this.handleChange} />
                         </div>
                         <hr />
                         <div className="divColorFondo">
                             <p>Background Color:</p>
-                            <ul>
-                                <li id="color1">
-                                    <div className="color1"></div>
-                                </li>
-                                <li id="color2">
-                                    <div className="color2"></div>
-                                </li>
-                                <li id="color3">
-                                    <div className="color3"></div>
-                                </li>
-                                <li id="color4">
-                                    <div className="color4"></div>
-                                </li>
-                                <li id="color5">
-                                    <div className="color5"></div>
-                                </li>
+                            <ul ref={this.list}>
+                                <li className="actualBoardColor" onClick={this.handleColor}></li>
+                                <li className="actualBoardColor" onClick={this.handleColor}></li>
+                                <li className="actualBoardColor" onClick={this.handleColor}></li>
+                                <li className="actualBoardColor" onClick={this.handleColor}></li>
+                                <li className="actualBoardColor" onClick={this.handleColor}></li>
                             </ul>
                         </div>
                         <hr />
@@ -90,6 +128,7 @@ class Boards extends React.Component {
                     </div>
                 </div>
                 <div className="divBoards boards">
+                    {this.state.boards}
                     <div onClick={this.newBoard} className="boardPrincipal board">
                         <p>Create new Board</p>
                     </div>
