@@ -92,7 +92,7 @@ router.post('/addBoard/:id', function (req, res, next) {
     _id: user
   }, {
     "$push": {boards: board}
-  })
+  }, {new:true})
     .then(user => {
       console.log(user);
       res.send(user.boards[user.boards.length -1]);

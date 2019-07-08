@@ -25,6 +25,26 @@ class Boards extends React.Component {
         this.btnAceptar = React.createRef();
     }
 
+    async componentDidMount() {
+        for (let board of this.props.user.boards) {
+            console.log(board);
+            const name = board.name;
+            const backColor = board.background;
+            const id = board.id;
+
+            const boardHTML =
+                <div style={{ background: backColor }} className="board" key={id}>
+                    <p>{name}</p>
+                </div>;
+
+            await this.setState({
+                boards: [
+                    boardHTML,
+                    ...this.state.boards
+                ]
+            })
+        }
+    }
 
     newBoard = async () => {
         await this.setState({
@@ -53,8 +73,6 @@ class Boards extends React.Component {
             board,
         });
 
-
-        console.log(res.data);
         this.props.user.boards = [
             ...this.props.user.boards,
             res.data
