@@ -81,21 +81,30 @@
 
 .divBotonAceptar {
     padding: 5px;
+    height: 30px;
     padding-top: 10px;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     display: flex;
 }
 
-.divBotonAceptar p {
-    background: #293d61;
-    color: #eee;
+.divBotonAceptar p:nth-child(1) {
+    color: red;
+}
+
+.divBotonAceptar p:nth-child(2) {
     display: inline;
     border-radius: 5px;
     padding: 2px 10px;
     transition: 0.2s;
 }
 
-.divBotonAceptar p:hover {
+.btnAceptarEnabled {
+    background: #293d61;
+    color: #eee;
+}
+
+.btnAceptarEnabled:hover {
     transition: 0.2s;
     background: #4868a7;
 }
@@ -112,7 +121,7 @@
 .divBoards {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat( auto-fit, 250px);
+    grid-template-columns: repeat(auto-fit, 250px);
     grid-template-rows: repeat(auto-fit, 100px);
     grid-gap: 10px;
     border-radius: 5px;

@@ -22,6 +22,7 @@ class Boards extends React.Component {
         }
         this.list = React.createRef();
         this.boardName = React.createRef();
+        this.btnAceptar = React.createRef();
     }
 
 
@@ -147,7 +148,8 @@ class Boards extends React.Component {
                         </div>
                         <hr />
                         <div className="divBotonAceptar">
-                            <p onClick={this.actAceptar}>Aceptar</p>
+                            <p style={{'display' : this.state.actualBoardName ? 'none' : 'block'}} className="errorMsg">The name field cannot be empty</p>
+                            <p ref={this.btnAceptar} onClick={this.actAceptar} className="btnAceptarEnabled" style={{'display' : this.state.actualBoardName ? 'block' : 'none'}}>Aceptar</p>
                         </div>
                     </div>
                 </div>
