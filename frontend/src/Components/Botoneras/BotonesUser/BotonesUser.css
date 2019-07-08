@@ -23,6 +23,7 @@
     position: absolute;
     top: 60px;
     right: 0;
+    z-index: 1000;
 }
 
 .menuDesplegable ul {
@@ -46,7 +47,7 @@
     font-size: 1.1em;
 }
 
-.menuDesplegable ul .btn:hover{
+.menuDesplegable ul .btn:hover {
     background: #293d61;
     color: #eee;
     padding-left: 30px;

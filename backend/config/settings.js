@@ -1,6 +1,6 @@
 const settings = {
     MONGODB: {
-        bbdd_url: '192.168.0.109',
+        bbdd_url: 'localhost',
         bbdd_name: "todonowBBDD",
         bbdd_port: '27017'
     },

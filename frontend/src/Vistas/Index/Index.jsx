@@ -6,9 +6,6 @@ import { Link } from 'react-router-dom';
 import Header from '../../Components/Headers/Header';
 import IndexContent from '../../Components/Contents/Index/Index';
 
-//Importacion de estilos
-import './Index.css';
-
 class Index extends React.Component {
 
     componentDidMount() {

@@ -4,6 +4,8 @@ header {
     align-items: center;
     display: flex;
     padding: 5px 25px;
+    height: 58px;
+    z-index: 10;
 }
 
 .btnHome {
