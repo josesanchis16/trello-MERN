@@ -48,14 +48,17 @@ class Boards extends React.Component {
             labels: [],
         }
 
-        //enviar objeto a la base de datos
-        //Enviar aqui
-        //
 
-        this.props.user.boards = [
+        const res = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/addBoard/${this.props.user._id}`, {
             board,
+        });
+
+
+        console.log(res.data);
+        this.props.user.boards = [
             ...this.props.user.boards,
-        ]
+            res.data
+        ];
 
         const nombre = board.name;
         const backColor = board.background;
@@ -148,8 +151,8 @@ class Boards extends React.Component {
                         </div>
                         <hr />
                         <div className="divBotonAceptar">
-                            <p style={{'display' : this.state.actualBoardName ? 'none' : 'block'}} className="errorMsg">The name field cannot be empty</p>
-                            <p ref={this.btnAceptar} onClick={this.actAceptar} className="btnAceptarEnabled" style={{'display' : this.state.actualBoardName ? 'block' : 'none'}}>Aceptar</p>
+                            <p style={{ 'display': this.state.actualBoardName ? 'none' : 'block' }} className="errorMsg">The name field cannot be empty</p>
+                            <p ref={this.btnAceptar} onClick={this.actAceptar} className="btnAceptarEnabled" style={{ 'display': this.state.actualBoardName ? 'block' : 'none' }}>Aceptar</p>
                         </div>
                     </div>
                 </div>
@@ -158,7 +161,6 @@ class Boards extends React.Component {
                     <div onClick={this.newBoard} className="boardPrincipal board">
                         <p>Create new Board</p>
                     </div>
-                    {/* Aqui las otras tablas */}
                 </div>
             </div>
         );
