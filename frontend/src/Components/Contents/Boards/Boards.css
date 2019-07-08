@@ -71,26 +71,6 @@
     border-radius: 50%;
 }
 
-.divColorFondo ul li:nth-child(1){
-    background-color: #F8A64A;
-}
-
-.divColorFondo ul li:nth-child(2){
-    background-color: #EA7070;
-}
-
-.divColorFondo ul li:nth-child(3){
-    background-color: #764AF8;
-}
-
-.divColorFondo ul li:nth-child(4){
-    background-color: #70C0EA;
-}
-
-.divColorFondo ul li:nth-child(5){
-    background-color: #7FEA70;
-}
-
 .colorSelected {
     border: 2px solid #000;
 }

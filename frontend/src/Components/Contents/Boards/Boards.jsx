@@ -17,43 +17,18 @@ class Boards extends React.Component {
         this.state = {
             actualBoardName: '',
             actualBoardColor: '',
-            showDivNewBoard: true,
-            creationDivShow: true,
+            showDivNewBoard: false,
             boards: [],
         }
         this.list = React.createRef();
+        this.boardName = React.createRef();
     }
 
 
     newBoard = async () => {
-        console.log(this.props.user);
-        const board = {
-            id: new Date().getTime(),
-            name: this.state.boardName,
-            background: this.state.boardColor,
-            stared: false,
-            people: [],
-            listas: [],
-            descripcion: '',
-            labels: [],
-        }
-
-        this.props.user.boards = [
-            ...this.props.user.boards,
-            board
-        ]
-
         await this.setState({
-            boards: [
-                ...this.state.boards,
-                <div className="board">
-                    <p>{board.name}</p>
-                </div>
-            ]
+            showDivNewBoard: true,
         })
-
-        console.log(this.state.boards);
-        // console.log(this.props);
 
         // const boardName = this.state.boardName;
         // await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/addBoard/${this.props.user._id}`, {
@@ -73,6 +48,59 @@ class Boards extends React.Component {
         //     });
     }
 
+    btnAceptar = async () => {
+        const name = this.state.actualBoardName;
+        const background = this.state.actualBoardColor;
+
+        const board = {
+            id: new Date().getTime(),
+            name: name,
+            background: background,
+            stared: false,
+            people: [],
+            listas: [],
+            descripcion: '',
+            labels: [],
+        }
+
+        //enviar objeto a la base de datos
+        //Enviar aqui
+        //
+
+        this.props.user.boards = [
+            board,
+            ...this.props.user.boards,
+        ]
+
+        const nombre = board.name;
+        const backColor = board.background;
+        await this.setState({
+            boards: [
+                <div style={{background: backColor}} className="board" key={board.id}>
+                    <p>{nombre}</p>
+                </div>,
+                ...this.state.boards,
+            ]
+        });
+
+        await this.setState({
+            showDivNewBoard: false,
+        });
+        this.clearLastInput();
+    }
+
+    clearLastInput() {
+        this.boardName.current.value = '';
+        this.clearListSelection();
+    }
+
+    clearListSelection() {
+        let childNodesLength = this.list.current.childNodes;
+        for (let child of childNodesLength) {
+            child.classList.remove('colorSelected');
+        }
+    }
+
     cerrarBoardCreation = async () => {
         await this.setState({
             showDivNewBoard: !this.state.showDivNewBoard,
@@ -85,16 +113,27 @@ class Boards extends React.Component {
     }
 
     handleColor = async (event) => {
-        let childNodesLength = this.list.current.childNodes;
-        for (let child of childNodesLength) {
-            child.classList.remove('colorSelected');
-        }
+        this.clearListSelection();
         event.target.classList.add('colorSelected');
-        console.log(event.target.background);
+        var rgb = event.target.style.background;
+
+        rgb = rgb.substring(4, rgb.length - 1)
+            .replace(/ /g, '')
+            .split(',');
+
         await this.setState({
-            actualBoardColor: event.target.background
+            actualBoardColor: this.rgbToHex(rgb[0], rgb[1], rgb[2])
         });
         console.log(this.state);
+    }
+
+    rgbToHex(r, g, b) {
+        return "#" + Number(r).toString(16) + Number(g).toString(16) + Number(b).toString(16);
+    }
+
+    componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
     }
 
     render() {
@@ -108,22 +147,22 @@ class Boards extends React.Component {
                         </div>
                         <div className="divName">
                             <p>Board name:</p>
-                            <input type="text" name='actualBoardName' onChange={this.handleChange} />
+                            <input ref={this.boardName} type="text" name='actualBoardName' onChange={this.handleChange} />
                         </div>
                         <hr />
                         <div className="divColorFondo">
                             <p>Background Color:</p>
                             <ul ref={this.list}>
-                                <li className="actualBoardColor" onClick={this.handleColor}></li>
-                                <li className="actualBoardColor" onClick={this.handleColor}></li>
-                                <li className="actualBoardColor" onClick={this.handleColor}></li>
-                                <li className="actualBoardColor" onClick={this.handleColor}></li>
-                                <li className="actualBoardColor" onClick={this.handleColor}></li>
+                                <li style={{ background: '#F8A64A' }} className="actualBoardColor" onClick={this.handleColor}></li>
+                                <li style={{ background: '#EA7070' }} className="actualBoardColor" onClick={this.handleColor}></li>
+                                <li style={{ background: '#764AF8' }} className="actualBoardColor" onClick={this.handleColor}></li>
+                                <li style={{ background: '#70C0EA' }} className="actualBoardColor" onClick={this.handleColor}></li>
+                                <li style={{ background: '#7FEA70' }} className="actualBoardColor" onClick={this.handleColor}></li>
                             </ul>
                         </div>
                         <hr />
                         <div className="divBotonAceptar">
-                            <p>Aceptar</p>
+                            <p onClick={this.btnAceptar}>Aceptar</p>
                         </div>
                     </div>
                 </div>
