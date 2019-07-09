@@ -24,6 +24,7 @@ header {
 .btnHome h1 {
     transition: 0.5s;
     color: #c5c5c5;
+    font-family: 'Sedgwick Ave', cursive;
 }
 
 .menuUser {
