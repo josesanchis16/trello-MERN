@@ -8,7 +8,6 @@ function userReducer(state = {}, action) {
             case 'NEWBOARD':
                 return {
                     ...state,
-                    
                 }
         default:
             return state;

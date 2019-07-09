@@ -19,6 +19,7 @@ class Boards extends React.Component {
             actualBoardColor: '',
             showDivNewBoard: false,
             boards: [],
+            imgs: [],
         }
         this.list = React.createRef();
         this.boardName = React.createRef();
@@ -26,6 +27,17 @@ class Boards extends React.Component {
     }
 
     async componentDidMount() {
+        const res = await axios.get('https://api.unsplash.com/photos/random?count=6&client_id=24947b377516628f4f8c3d19940525dab1d5e734746767039ff261554f7b619d');
+        for(let obj of res.data){
+            console.log(obj.urls);
+            await this.setState({
+                imgs : [
+                    ...this.state.imgs,
+                    obj.urls.regular
+                ]
+            })
+        }
+
         for (let board of this.props.user.boards) {
             console.log(board);
             const name = board.name;
@@ -103,6 +115,7 @@ class Boards extends React.Component {
 
     clearListSelection() {
         let childNodesLength = this.list.current.childNodes;
+        console.log(childNodesLength);
         for (let child of childNodesLength) {
             child.classList.remove('colorSelected');
         }
@@ -129,9 +142,22 @@ class Boards extends React.Component {
             .split(',');
 
         await this.setState({
-            actualBoardColor: this.rgbToHex(rgb[0], rgb[1], rgb[2])
+            actualBoardColor: 'linear-gradient(to right, #0000008c, #92929255),' + this.rgbToHex(rgb[0], rgb[1], rgb[2])
         });
         console.log(this.state);
+    }
+
+    handleImage = async (event) => {
+        this.clearListSelection();
+        event.target.classList.add('colorSelected');
+        await this.setState({
+            actualBoardColor: 'linear-gradient(to right, #0000008c, #92929255),' + event.target.style.background
+        });
+        console.log(this.state);
+    }
+
+    getImage() {
+        return Math.round(Math.random() * 1000);
     }
 
     rgbToHex(r, g, b) {
@@ -164,8 +190,21 @@ class Boards extends React.Component {
                                 <li style={{ background: '#EA7070' }} className="actualBoardColor" onClick={this.handleColor}></li>
                                 <li style={{ background: '#764AF8' }} className="actualBoardColor" onClick={this.handleColor}></li>
                                 <li style={{ background: '#70C0EA' }} className="actualBoardColor" onClick={this.handleColor}></li>
-                                <li style={{ background: '#7FEA70' }} className="actualBoardColor" onClick={this.handleColor}></li>
+                                <li style={{ background: '#57c348' }} className="actualBoardColor" onClick={this.handleColor}></li>
+                                <li style={{ background: '#D766EE' }} className="actualBoardColor" onClick={this.handleColor}></li>
+                                <li style={{ background: `url('${this.state.imgs[0]}')` }} className="imgBackground actualBoardColor" onClick={this.handleImage}></li>
+                                <li style={{ background: `url('${this.state.imgs[1]}')` }} className="imgBackground actualBoardColor" onClick={this.handleImage}></li>
+                                <li style={{ background: `url('${this.state.imgs[2]}')` }} className="imgBackground actualBoardColor" onClick={this.handleImage}></li>
+                                <li style={{ background: `url('${this.state.imgs[3]}')` }} className="imgBackground actualBoardColor" onClick={this.handleImage}></li>
+                                <li style={{ background: `url('${this.state.imgs[4]}')` }} className="imgBackground actualBoardColor" onClick={this.handleImage}></li>
+                                <li style={{ background: `url('${this.state.imgs[5]}')` }} className="imgBackground actualBoardColor" onClick={this.handleImage}></li>
+                                {/* <li className="actualBoardColor"><input onChange={this.handleSelectionColor} className="selectCustomColor" type="color" name="color" id="color"/></li> */}
                             </ul>
+                        </div>
+                        <div className="previewBoard">
+                            <div style={{ background: this.state.actualBoardColor }} className="board">
+                                <p>{this.state.actualBoardName}</p>
+                            </div>
                         </div>
                         <hr />
                         <div className="divBotonAceptar">
