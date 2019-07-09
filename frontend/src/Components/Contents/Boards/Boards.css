@@ -175,6 +175,7 @@
     height: 100px;
     width: 100%;
     transition: 0.5s;
+    position: relative;
 }
 
 .board:hover,
@@ -197,4 +198,27 @@
 .boardPrincipal p {
     margin: 0;
     color: #293d61;
+}
+
+.starDiv {
+    margin: 0 !important;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 25px;
+    height: 25px;
+}
+
+.starIcon {
+    font-size: 0.7em;
+    color: #eee;
+    transition: 0.5s;
+}
+
+.starDiv:hover .starIcon {
+    font-size: 1.2em;
+    transition: 0.5s;
 }

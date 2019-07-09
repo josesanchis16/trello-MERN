@@ -47,6 +47,7 @@ class Boards extends React.Component {
             const boardHTML =
                 <div style={{ background: backColor }} className="board" key={id}>
                     <p>{name}</p>
+                    <p className="starDiv"><i className="fas fa-star starIcon" id={id} onClick={this.btnStared}></i></p>
                 </div>;
 
             await this.setState({
@@ -63,6 +64,10 @@ class Boards extends React.Component {
             showDivNewBoard: true,
         });
         this.boardName.current.focus();
+    }
+
+    btnStared = (e) => {
+        console.log(e.target.id);
     }
 
     actAceptar = async () => {
@@ -96,6 +101,7 @@ class Boards extends React.Component {
             boards: [
                 <div style={{ background: backColor }} className="board" key={board.id}>
                     <p>{nombre}</p>
+                    <p className="starDiv"><i className="fas fa-star starIcon" id={board.id} onClick={this.btnStared}></i></p>
                 </div>,
                 ...this.state.boards,
             ]
