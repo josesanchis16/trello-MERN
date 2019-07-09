@@ -28,10 +28,10 @@ class Boards extends React.Component {
 
     async componentDidMount() {
         const res = await axios.get('https://api.unsplash.com/photos/random?count=6&client_id=24947b377516628f4f8c3d19940525dab1d5e734746767039ff261554f7b619d');
-        for(let obj of res.data){
+        for (let obj of res.data) {
             console.log(obj.urls);
             await this.setState({
-                imgs : [
+                imgs: [
                     ...this.state.imgs,
                     obj.urls.regular
                 ]
@@ -213,10 +213,31 @@ class Boards extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="divBoards boards">
-                    {this.state.boards}
-                    <div onClick={this.newBoard} className="boardPrincipal board">
-                        <p>Create new Board</p>
+                <div className="divAllBoards">
+                    {/* Stared boards */}
+                    {this.state.staredBoards &&
+                        <div className="staredBoards divBoards">
+                            <div className="titleBoard">
+                                <i className="fas fa-star icon"></i>
+                                <h2>Stared boards</h2>
+                            </div>
+                            <div className=" boards">
+                                {this.state.staredBoards}
+                            </div>
+                        </div>
+                    }
+                    {/* Personal boards */}
+                    <div className="personalBoards divBoards">
+                        <div className="titleBoard">
+                            <i className="fas fa-user icon"></i>
+                            <h2>Your boards</h2>
+                        </div>
+                        <div className=" boards">
+                            {this.state.boards}
+                            <div onClick={this.newBoard} className="boardPrincipal board">
+                                <p>Create new Board</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
