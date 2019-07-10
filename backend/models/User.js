@@ -36,8 +36,12 @@ const userSchema = new mongoose.Schema({
             default: false
         },
     },
-    tokens: [],
-    boards: [],
+    tokens: {
+        login: {
+            type: String
+        },
+        boards: [],
+    },
 }, {
     timestamps: true
 })

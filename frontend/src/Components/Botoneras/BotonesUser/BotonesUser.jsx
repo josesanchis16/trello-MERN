@@ -1,14 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+//Traemos la store
+import store from '../../../config/redux/store';
 //Importamos los estilos
 import './BotonesUser.css';
+
 
 class BotonesUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             menuShow: false,
+            user: this.props.user
         }
         console.log(this.props.user);
     }
@@ -19,11 +23,23 @@ class BotonesUser extends React.Component {
         })
     }
 
-    logout = () => {
+    logout = async () => {
         localStorage.removeItem('loginToken');
         localStorage.removeItem('redux_localstorage_simple');
-        window.location.href = "/";
-        console.log('mec')
+        await this.setState({
+            user: ''
+        });
+
+        try {
+            const action = {
+                type: 'LOGOUTUSER',
+                payload: ''
+            }
+            store.dispatch(action);
+        } catch (e) {
+            console.log(e);
+        }
+        console.log('mec');
     }
 
     render() {

@@ -17,7 +17,7 @@ class Index extends React.Component {
     render() {
         return (
             <div className="page">
-                <Header history={this.props.history} />
+                <Header/>
                 {this.props.user ? <Link to="/boards" /> : <IndexContent />}
             </div>
         )

@@ -5,6 +5,8 @@ function userReducer(state = {}, action) {
                 ...state,
                 loginToken: action.payload
             };
+        case 'LOGOUTUSER':
+            return {};
         default:
             return state;
     }

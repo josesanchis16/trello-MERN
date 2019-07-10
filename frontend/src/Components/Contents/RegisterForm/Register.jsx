@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { isEmail } from 'validator';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import store from '../../../config/redux/store';
 
@@ -21,6 +22,13 @@ class Register extends React.Component {
             errorMsg: '',
             backendInfo: '',
         }
+        console.log(this.props.user);
+    }
+
+    componentDidMount(){
+        if (localStorage.getItem('loginToken')){
+            this.props.history.push('/');
+        }
     }
 
     handleSubmit = async event => {
@@ -38,23 +46,26 @@ class Register extends React.Component {
                     email,
                     password
                 })
-                await this.setState({ backendInfo: res.data });
-                if (this.state.backendInfo !== '') {
-                    await localStorage.setItem('loginToken', this.state.backendInfo.tokens.filter(token => token.for === 'login')[0].token);
-                    try {
-                        const action = {
-                            type: 'LOGINTOKEN',
-                            payload: res.data
-                        }
-                        store.dispatch(action);
-                    } catch (e) {
-                        console.log(e);
+                try {
+                    await localStorage.setItem('loginToken', res.data.tokens.login);
+                    const action = {
+                        type: 'LOGINTOKEN',
+                        payload: res.data
                     }
+                    await store.dispatch(action);
                     console.log('Token Guardado');
                     this.props.history.push('/');
-                } else {
-                    console.log(this.state);
+                } catch (e) {
+                    console.log('Error al guardar el token');
+                    console.log(e);
                 }
+                // this.props.history.push('/');
+                // if (this.state.backendInfo !== '') {
+                //     // await localStorage.setItem('loginToken', this.state.backendInfo.tokens.login);
+
+                // } else {
+                //     console.log(this.state);
+                // }
             } else {
                 console.log('mec');
             }
@@ -220,4 +231,9 @@ class Register extends React.Component {
     }
 }
 
-export default Register;
+const mapStateToProps = state => {
+    return {
+        user: state.userReducer,
+    }
+}
+export default connect(mapStateToProps)(Register);
