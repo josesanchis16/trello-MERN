@@ -28,6 +28,8 @@ class Login extends React.Component {
             const email = this.state.email;
             const password = this.state.password;
             if (this.state.errorMsg.length === 0) {
+                console.log(process.env.NODE_ENV);
+                console.log(`${settings.backend.host_backend}`);
                 const res = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/login`, {
                     email,
                     password

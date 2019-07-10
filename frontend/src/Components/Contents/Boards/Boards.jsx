@@ -38,7 +38,7 @@ class Boards extends React.Component {
             })
         }
 
-        if (this.props.user.boards) {
+        if (this.props.user) {
             for (let board of this.props.user.boards) {
                 console.log(board);
                 const name = board.name;

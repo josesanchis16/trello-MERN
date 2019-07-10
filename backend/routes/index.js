@@ -1,5 +1,6 @@
 //Importamos la conexion con mongo, para que cuando se lea este archivo se conecte con la base de datos automaticamente.
-require('../config/mongoose');
+const mongoose = require('../config/mongoose');
+mongoose;
 const jwt = require('jsonwebtoken');
 
 var express = require('express');
@@ -22,12 +23,12 @@ router.get('/', function (req, res, next) {
 router.post('/signup', function (req, res, next) {
   console.log(req.body);
   new UserModel({
-    ...req.body,
-    info: {
-      //Anadimos el avatar por defecto
-      avatar: `https://api.adorable.io/avatars/150/${req.body.email}`,
-    }
-  }).save()
+      ...req.body,
+      info: {
+        //Anadimos el avatar por defecto
+        avatar: `https://api.adorable.io/avatars/150/${req.body.email}`,
+      }
+    }).save()
     .then(user => {
       const userToken = user.generateAuthToken();
       user.tokens = [{
@@ -48,9 +49,10 @@ router.post('/login', function (req, res, next) {
 
 
   UserModel.findOne({
-    "email": req.body.email,
-  })
+      "email": req.body.email,
+    })
     .then(user => {
+      if (!user) res.send('wrong Email or password');
       user.comparePassword(pass, function (error, isMatch) {
         if (isMatch && !error) {
           const userToken = user.generateAuthToken();
@@ -62,7 +64,7 @@ router.post('/login', function (req, res, next) {
           res.send(user);
         } else {
           console.log('Error de autentificacion');
-          res.send('wrong Email or password')
+          res.send('wrong Email or password');
         }
       });
     })
@@ -75,11 +77,11 @@ router.get('/getUserFromToken/:token', function (req, res, next) {
   let token = req.params.token;
   let user = jwt.verify(token, SECRET_AUTH_JWT);
   UserModel.findOne({
-    _id: user._id,
-  }).then(completeUser => {
-    console.log(completeUser);
-    res.send(completeUser);
-  })
+      _id: user._id,
+    }).then(completeUser => {
+      console.log(completeUser);
+      res.send(completeUser);
+    })
     .catch(err => {
       console.log();
     });
@@ -89,12 +91,16 @@ router.post('/addBoard/:id', function (req, res, next) {
   const user = req.params.id;
   const board = req.body.board;
   UserModel.findOneAndUpdate({
-    _id: user
-  }, {
-    "$push": {boards: board}
-  }, {new:true})
+      _id: user
+    }, {
+      "$push": {
+        boards: board
+      }
+    }, {
+      new: true
+    })
     .then(user => {
       console.log(user);
-      res.send(user.boards[user.boards.length -1]);
+      res.send(user.boards[user.boards.length - 1]);
     })
 });
