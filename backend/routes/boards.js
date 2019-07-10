@@ -17,4 +17,24 @@ router.get('/getAll', function (req, res, next) {
     })
 });
 
+router.post('/createBoard/', function (req, res, next) {
+
+  const board = req.body.board;
+
+  console.log(board);
+
+  new BoardModel({
+
+    }, {
+      new: true
+    }).save()
+    .then(board => {
+      res.send(board);
+    })
+    .catch(e => {
+      res.send('3');
+      console.log('Error al guardar la board: ' + e);
+    });
+})
+
 module.exports = router;

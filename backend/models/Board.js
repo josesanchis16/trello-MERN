@@ -3,9 +3,16 @@ const jwt = require('jsonwebtoken');
 const SECRET_AUTH_JWT = require('../config/settings').SECRET_AUTH_JWT;
 
 const boardSchema = new mongoose.Schema({
-    name :{
-        type:String
-    }
+    name: {
+        type: String,
+        required: true,
+    },
+    description: String,
+    background: String,
+    stared: Boolean,
+    people: [],
+    listas: [],
+    labels: []
 }, {
     timestamps: true
 })
