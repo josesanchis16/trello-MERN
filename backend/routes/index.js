@@ -70,37 +70,38 @@ router.post('/login', function (req, res, next) {
     })
 });
 
-module.exports = router;
 
 //Conseguir la informacion de un token
 router.get('/getUserFromToken/:token', function (req, res, next) {
   let token = req.params.token;
   let user = jwt.verify(token, SECRET_AUTH_JWT);
   UserModel.findOne({
-      _id: user._id,
-    }).then(completeUser => {
-      console.log(completeUser);
-      res.send(completeUser);
-    })
-    .catch(err => {
-      console.log();
-    });
+    _id: user._id,
+  }).then(completeUser => {
+    console.log(completeUser);
+    res.send(completeUser);
+  })
+  .catch(err => {
+    console.log();
+  });
 })
 
 router.post('/addBoard/:id', function (req, res, next) {
   const user = req.params.id;
   const board = req.body.board;
   UserModel.findOneAndUpdate({
-      _id: user
-    }, {
-      "$push": {
-        boards: board
-      }
-    }, {
-      new: true
-    })
-    .then(user => {
-      console.log(user);
-      res.send(user.boards[user.boards.length - 1]);
-    })
+    _id: user
+  }, {
+    "$push": {
+      boards: board
+    }
+  }, {
+    new: true
+  })
+  .then(user => {
+    console.log(user);
+    res.send(user.boards[user.boards.length - 1]);
+  })
 });
+
+module.exports = router;
