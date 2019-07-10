@@ -63,7 +63,7 @@ userSchema.pre('save', function (next) {
                 }))
             .catch(error => {
                 console.log(error);
-                res.status(500).redirect('/page-not-found');
+                res.status(500).redirect('/');
             })
     } else {
         return next();

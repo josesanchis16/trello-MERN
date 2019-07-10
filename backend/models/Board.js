@@ -10,6 +10,10 @@ const boardSchema = new mongoose.Schema({
     description: String,
     background: String,
     stared: Boolean,
+    admin: {
+        type: String,
+        required: true,
+    },
     people: [],
     listas: [],
     labels: []

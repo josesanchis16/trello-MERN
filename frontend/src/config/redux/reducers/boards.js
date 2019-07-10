@@ -1,8 +1,7 @@
-function boardsReducer(state = {}, action) {
+function boardsReducer(state = [], action) {
     switch (action.type) {
         case 'NEWBOARD':
             return {
-                ...state,
                 boards: [
                     ...state.boards,
                     action.payload

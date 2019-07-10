@@ -10,6 +10,7 @@ import settings from '../../../config/settings';
 
 //Importamos los estilos
 import './Boards.css';
+import store from '../../../config/redux/store';
 
 class Boards extends React.Component {
     constructor(props) {
@@ -28,46 +29,61 @@ class Boards extends React.Component {
     }
 
     async componentDidMount() {
-        const res = await axios.get('https://api.unsplash.com/photos/random?count=6&client_id=24947b377516628f4f8c3d19940525dab1d5e734746767039ff261554f7b619d');
-        for (let obj of res.data) {
-            console.log(obj.urls);
-            await this.setState({
-                imgs: [
-                    ...this.state.imgs,
-                    obj.urls.regular
-                ]
-            })
-        }
+        //Conseguimos las imagenes aleatorias para los fondos de pantalla
+        // const res = await axios.get('https://api.unsplash.com/photos/random?count=6&client_id=24947b377516628f4f8c3d19940525dab1d5e734746767039ff261554f7b619d');
+        // for (let obj of res.data) {
+        //     console.log(obj.urls);
+        //     await this.setState({
+        //         imgs: [
+        //             ...this.state.imgs,
+        //             obj.urls.regular
+        //         ]
+        //     });
+        // }
 
+        //Comprobamos que haya un usuario en la memoria
         if (this.props.user) {
-            for (let board of this.props.user.boards) {
-                console.log(board);
-                const name = board.name;
-                const backColor = board.background;
-                const id = board.id;
-                const stared = board.stared;
+            console.log(this.props.user);
+            const userId = this.props.user._id;
+            console.log(userId);
+            const boards = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/boards/getUserBoards`, {
+                userId
+            });
+            console.log(boards.data);
+            if (boards.data.length > 0) {
+                boards.data.map(async board => {
+                    //Creamos la board para visualizarla
+                    const boardHTML =
+                        <div style={{ background: board.background }} className="board" key={board._id}>
+                            <p>{board.name}</p>
+                            <p className="starDiv"><i style={{ color: (board.stared ? '#FFD800' : '#eee') }} className="fas fa-star starIcon" id={board.id} onClick={this.btnStared}></i></p>
+                        </div>;
 
-                const boardHTML =
-                    <div style={{ background: backColor}} className="board" key={id}>
-                        <p>{name}</p>
-                        <p className="starDiv"><i style={{color: (stared ? '#FFD800' : '#eee')}} className="fas fa-star starIcon" id={id} onClick={this.btnStared}></i></p>
-                    </div>;
+                    //Insertamos las que estan stared en su array correspondiente
+                    if (board.stared) {
+                        await this.setState({
+                            staredBoards: [
+                                boardHTML,
+                                ...this.state.staredBoards,
+                            ]
+                        })
+                    }
 
-                if (board.stared) {
+                    //Rellenamos la array general
                     await this.setState({
-                        staredBoards: [
+                        boards: [
                             boardHTML,
-                            ...this.state.staredBoards,
+                            ...this.state.boards
                         ]
                     })
-                }
+                    const action = {
+                        type: 'NEWBOARD',
+                        payload: board
+                    }
+                    await store.dispatch(action);
 
-                await this.setState({
-                    boards: [
-                        boardHTML,
-                        ...this.state.boards
-                    ]
-                })
+                });
+                console.log('Se han cargado todas las boards');
             }
         }
     }
@@ -86,50 +102,59 @@ class Boards extends React.Component {
     actAceptar = async () => {
         const name = this.state.actualBoardName;
         const background = this.state.actualBoardColor;
+        const stared = false;
+        const admin = this.props.user._id;
+
+
+        const res = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/boards/createBoard`, {
+            name,
+            background,
+            stared,
+            admin
+        });
 
         const board = {
-            id: new Date().getTime(),
-            name: name,
-            background: background,
-            stared: false,
-            people: [],
-            listas: [],
-            descripcion: '',
-            labels: [],
+            'name': name,
+            'descripcion': '',
+            'background': background,
+            'stared': false,
+            'admin': this.props.user._id,
+            'people': [],
+            'listas': [],
+            'labels': [],
         }
 
-        const res = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/addBoard/${this.props.user._id}`, {
-            board,
-        });
+        console.log(board);
 
-        this.props.user.boards = [
-            ...this.props.user.boards,
-            res.data
-        ];
+        const action = {
+            type: 'NEWBOARD',
+            payload: board,
+        }
+        await store.dispatch(action);
+        console.log('Se ha insertado la board en el redux');
 
-        const nombre = board.name;
-        const backColor = board.background;
-        await this.setState({
-            boards: [
-                <div style={{ background: backColor }} className="board" key={board.id}>
-                    <p>{nombre}</p>
-                    <p className="starDiv"><i className="fas fa-star starIcon" id={board.id} onClick={this.btnStared}></i></p>
-                </div>,
-                ...this.state.boards,
-            ]
-        });
+        // const nombre = board.name;
+        // const backColor = board.background;
+        // await this.setState({
+        //     boards: [
+        //         <div style={{ background: backColor }} className="board" key={board.id}>
+        //             <p>{nombre}</p>
+        //             <p className="starDiv"><i className="fas fa-star starIcon" id={board.id} onClick={this.btnStared}></i></p>
+        //         </div>,
+        //         ...this.state.boards,
+        //     ]
+        // });
 
-        await this.setState({
-            showDivNewBoard: false,
-            actualBoardColor: '#eee',
-        });
-        this.clearLastInput();
+        // await this.setState({
+        //     showDivNewBoard: false,
+        //     actualBoardColor: '#eee',
+        // });
     }
 
-    clearLastInput() {
-        this.boardName.current.value = '';
-        this.clearListSelection();
-    }
+    // clearLastInput() {
+    //     this.boardName.current.value = '';
+    //     this.clearListSelection();
+    // }
 
     clearListSelection() {
         let childNodesLength = this.list.current.childNodes;
@@ -147,7 +172,6 @@ class Boards extends React.Component {
 
     handleChange = async (event) => {
         await this.setState({ [event.target.name]: event.target.value });
-        console.log(this.state);
     }
 
     handleColor = async (event) => {
@@ -162,7 +186,6 @@ class Boards extends React.Component {
         await this.setState({
             actualBoardColor: 'linear-gradient(to right, #0000008c, #92929255),' + this.rgbToHex(rgb[0], rgb[1], rgb[2])
         });
-        console.log(this.state);
     }
 
     handleImage = async (event) => {
@@ -171,11 +194,6 @@ class Boards extends React.Component {
         await this.setState({
             actualBoardColor: 'linear-gradient(to right, #0000008c, #92929255),' + event.target.style.background
         });
-        console.log(this.state);
-    }
-
-    getImage() {
-        return Math.round(Math.random() * 1000);
     }
 
     rgbToHex(r, g, b) {

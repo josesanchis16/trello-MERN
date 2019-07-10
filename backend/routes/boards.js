@@ -24,9 +24,7 @@ router.post('/createBoard/', function (req, res, next) {
   console.log(board);
 
   new BoardModel({
-
-    }, {
-      new: true
+      ...res.body
     }).save()
     .then(board => {
       res.send(board);
@@ -35,6 +33,15 @@ router.post('/createBoard/', function (req, res, next) {
       res.send('3');
       console.log('Error al guardar la board: ' + e);
     });
+});
+
+router.post('/getUserBoards', function (req, res, next) {
+  const id = req.body.id;
+  BoardModel.find({
+      admin: id,
+    })
+    .then(boards => res.send(boards))
+    .catch(e => console.log(e));
 })
 
 module.exports = router;
