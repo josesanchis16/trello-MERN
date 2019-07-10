@@ -125,18 +125,16 @@
 }
 
 .divAllBoards {
-    width: 50%;
+    width: 75%;
     border-radius: 5px;
     padding: 10px;
-    height: 95%;
 }
 
 .divBoards {
-    margin: 10px;
     background: #eeeeeed5;
     border-radius: 10px;
     box-shadow:2px 2px 20px 0 #454545;
-    padding-bottom: 30px;
+    display: flex;
 }
 
 .personalBoards, .staredBoards {
@@ -163,7 +161,12 @@
     grid-template-columns: repeat(auto-fit, 250px);
     grid-template-rows: repeat(auto-fit, 100px);
     grid-gap: 10px;
+    margin: 15px;
     justify-content: center;
+}
+
+.starIconSelected{
+    color: gold;
 }
 
 .board,

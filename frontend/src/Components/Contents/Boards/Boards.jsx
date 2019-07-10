@@ -19,6 +19,7 @@ class Boards extends React.Component {
             actualBoardColor: '',
             showDivNewBoard: false,
             boards: [],
+            staredBoards: [],
             imgs: [],
         }
         this.list = React.createRef();
@@ -44,12 +45,22 @@ class Boards extends React.Component {
                 const name = board.name;
                 const backColor = board.background;
                 const id = board.id;
+                const stared = board.stared;
 
                 const boardHTML =
-                    <div style={{ background: backColor }} className="board" key={id}>
+                    <div style={{ background: backColor}} className="board" key={id}>
                         <p>{name}</p>
-                        <p className="starDiv"><i className="fas fa-star starIcon" id={id} onClick={this.btnStared}></i></p>
+                        <p className="starDiv"><i style={{color: (stared ? '#FFD800' : '#eee')}} className="fas fa-star starIcon" id={id} onClick={this.btnStared}></i></p>
                     </div>;
+
+                if (board.stared) {
+                    await this.setState({
+                        staredBoards: [
+                            boardHTML,
+                            ...this.state.staredBoards,
+                        ]
+                    })
+                }
 
                 await this.setState({
                     boards: [
@@ -86,7 +97,6 @@ class Boards extends React.Component {
             descripcion: '',
             labels: [],
         }
-
 
         const res = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/addBoard/${this.props.user._id}`, {
             board,
