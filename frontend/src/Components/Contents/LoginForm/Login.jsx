@@ -1,10 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import { isEmail } from 'validator';
-
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+//Importamos la store
 import store from '../../../config/redux/store';
+
 //Importamos los settings
 import settings from '../../../config/settings';
 
@@ -25,45 +27,37 @@ class Login extends React.Component {
         try {
             event.preventDefault();
             await this.validateForm();
+
             const email = this.state.email;
             const password = this.state.password;
+
             if (this.state.errorMsg.length === 0) {
-                console.log(process.env.NODE_ENV);
-                console.log(`${settings.backend.host_backend}`);
                 const res = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/login`, {
                     email,
                     password
-                })
-                await this.setState({ backendInfo: res.data });
-                if (this.state.backendInfo !== '') {
-                    if (typeof this.state.backendInfo === 'string') {
-                        await this.setState({
-                            errorMsg: this.state.backendInfo
-                        })
-                    } else {
-                        await localStorage.setItem('loginToken', this.state.backendInfo.tokens.filter(token => token.for === 'login')[0].token);
-                        try {
-                            const action = {
-                                type: 'LOGINTOKEN',
-                                payload: res.data
-                            }
-                            store.dispatch(action);
-                        } catch (e) {
-                            console.log(e);
-                        }
-                        console.log('Token Guardado');
-                        this.props.history.push('/');
+                });
+                if (res.data === 2) {
+                    return await this.setState({
+                        errorMsg: 'Email or Password is wrong'
+                    });
+                }
+                console.log(res.data);
+                localStorage.setItem('loginToken', res.data.tokens.login);
+                try {
+                    const action = {
+                        type: 'LOGINTOKEN',
+                        payload: res.data
                     }
-                } else {
-                    await this.setState({ errorMsg: 'Email or Password is wrong' })
-                    console.log(this.state);
+                    await store.dispatch(action);
+                    this.props.history.push('/boards');
+                } catch (e) {
+                    console.log('Error al iniciar sesión: ' + e);
                 }
             }
         }
         catch (error) {
-            console.error(error)
+            console.error(error);
         }
-
     }
     validateForm = async () => {
         await this.validateEmail();
@@ -150,4 +144,10 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+const mapStateToProps = state => {
+    return {
+        user: state.userReducer
+    }
+}
+
+export default connect(mapStateToProps)(Login);

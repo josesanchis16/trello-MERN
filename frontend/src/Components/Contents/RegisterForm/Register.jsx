@@ -4,6 +4,7 @@ import { isEmail } from 'validator';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+//Importamos la store
 import store from '../../../config/redux/store';
 
 //Importamos los settings
@@ -25,8 +26,8 @@ class Register extends React.Component {
         console.log(this.props.user);
     }
 
-    componentDidMount(){
-        if (localStorage.getItem('loginToken')){
+    componentDidMount() {
+        if (localStorage.getItem('loginToken')) {
             this.props.history.push('/');
         }
     }
@@ -59,19 +60,10 @@ class Register extends React.Component {
                     console.log('Error al guardar el token');
                     console.log(e);
                 }
-                // this.props.history.push('/');
-                // if (this.state.backendInfo !== '') {
-                //     // await localStorage.setItem('loginToken', this.state.backendInfo.tokens.login);
-
-                // } else {
-                //     console.log(this.state);
-                // }
-            } else {
-                console.log('mec');
             }
         }
         catch (error) {
-            console.error(error)
+            console.error('Ha ocurrido un error: ' + error);
         }
     }
 

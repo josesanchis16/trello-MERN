@@ -43,27 +43,23 @@ router.post('/signup', function (req, res, next) {
 //Iniciar sesion con un usuario existente
 router.post('/login', function (req, res, next) {
   let pass = req.body.password;
-  console.log(pass);
-  // let pass = jwt.verify(req.body.password, SECRET_AUTH_JWT);
-
 
   UserModel.findOne({
       "email": req.body.email,
     })
     .then(user => {
-      if (!user) res.send('wrong Email or password');
+      if (!user) res.send('2'); //El correo electronico no existe
       user.comparePassword(pass, function (error, isMatch) {
         if (isMatch && !error) {
           const userToken = user.generateAuthToken();
-          user.tokens = [{
-            for: 'login',
-            token: userToken
-          }]
+          user.tokens = {
+            login: userToken
+          }
           console.log(user);
           res.send(user);
         } else {
           console.log('Error de autentificacion');
-          res.send('wrong Email or password');
+          res.send('2'); //La contraseña es incorrecta
         }
       });
     })
