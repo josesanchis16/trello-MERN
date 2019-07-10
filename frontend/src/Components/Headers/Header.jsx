@@ -11,9 +11,6 @@ import BotonesLogin from '../Botoneras/BotonesUser/BotonesUser';
 import './Header.css';
 
 class Header extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (
