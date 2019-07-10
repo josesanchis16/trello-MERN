@@ -38,24 +38,26 @@ class Boards extends React.Component {
             })
         }
 
-        for (let board of this.props.user.boards) {
-            console.log(board);
-            const name = board.name;
-            const backColor = board.background;
-            const id = board.id;
+        if (this.props.user.boards) {
+            for (let board of this.props.user.boards) {
+                console.log(board);
+                const name = board.name;
+                const backColor = board.background;
+                const id = board.id;
 
-            const boardHTML =
-                <div style={{ background: backColor }} className="board" key={id}>
-                    <p>{name}</p>
-                    <p className="starDiv"><i className="fas fa-star starIcon" id={id} onClick={this.btnStared}></i></p>
-                </div>;
+                const boardHTML =
+                    <div style={{ background: backColor }} className="board" key={id}>
+                        <p>{name}</p>
+                        <p className="starDiv"><i className="fas fa-star starIcon" id={id} onClick={this.btnStared}></i></p>
+                    </div>;
 
-            await this.setState({
-                boards: [
-                    boardHTML,
-                    ...this.state.boards
-                ]
-            })
+                await this.setState({
+                    boards: [
+                        boardHTML,
+                        ...this.state.boards
+                    ]
+                })
+            }
         }
     }
 
