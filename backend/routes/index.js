@@ -1,12 +1,10 @@
 //Importamos la conexion con mongo, para que cuando se lea este archivo se conecte con la base de datos automaticamente.
-const mongoose = require('../config/mongoose');
-mongoose;
+require('../config/mongoose');
 const jwt = require('jsonwebtoken');
 
 var express = require('express');
 var router = express.Router();
 
-const url_frontend = require('../config/settings').FRONTEND;
 const SECRET_AUTH_JWT = require('../config/settings').SECRET_AUTH_JWT;
 
 //Importamos el modelo para poderlo utilizar a la hora de manejar datos con mongo

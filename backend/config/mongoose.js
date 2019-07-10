@@ -9,12 +9,5 @@ mongoose.connect(url, {
         useCreateIndex: true,
         useNewUrlParser: true,
     }).then(() => console.log('Conexión establecida con exito'))
-    .catch(err => console.log('Error al intentar conectar con mongo atlas: ' + err));
-// mongoose.connect(`mongodb://${settings.bbdd_url}:${settings.bbdd_port}/${settings.bbdd_name}`, {
-//         useCreateIndex: true,
-//         useNewUrlParser: true
-//     })
-//     .then(() => console.log("conexión establecida con éxito"))
-//     .catch(err => console.log("error al intentar conectar con mongodb " + err))
-
+    .catch(err => console.log('Error al intentar conectar con mongo: ' + err));
 module.exports = mongoose;

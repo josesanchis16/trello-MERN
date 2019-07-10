@@ -12,9 +12,7 @@ class BotonesUser extends React.Component {
         super(props);
         this.state = {
             menuShow: false,
-            user: this.props.user
         }
-        console.log(this.props.user);
     }
 
     clickBackgroundMenu = async () => {
@@ -24,22 +22,17 @@ class BotonesUser extends React.Component {
     }
 
     logout = async () => {
-        localStorage.removeItem('loginToken');
-        localStorage.removeItem('redux_localstorage_simple');
-        await this.setState({
-            user: ''
-        });
-
+        await localStorage.removeItem('loginToken');
         try {
             const action = {
                 type: 'LOGOUTUSER',
                 payload: ''
             }
-            store.dispatch(action);
+            await store.dispatch(action);
+            this.props.history.push('/');
         } catch (e) {
-            console.log(e);
+            console.log('Error al hacer el logout: ' + e);
         }
-        console.log('mec');
     }
 
     render() {
@@ -47,10 +40,10 @@ class BotonesUser extends React.Component {
             <div className="menuImagen">
                 <div className="backgroundList" onClick={this.clickBackgroundMenu} style={{ 'display': this.state.menuShow ? 'block' : 'none' }}></div>
                 <div className="btnImagen">
-                    <img src={this.props.user.info.avatar} onClick={this.clickBackgroundMenu} alt="avatar" />
+                    <img src={this.props.user.loginToken.info.avatar} onClick={this.clickBackgroundMenu} alt="avatar" />
                     <div className="menuDesplegable" style={{ 'display': this.state.menuShow ? 'block' : 'none' }}>
                         <ul className="lista">
-                            <li className="static">{this.props.user.nick}</li>
+                            <li className="static">{this.props.user.loginToken.nick}</li>
                             <hr />
                             <li className="btnPerfil btn">Profile</li>
                             <hr />
@@ -65,7 +58,7 @@ class BotonesUser extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.userReducer.loginToken
+        user: state.userReducer
     };
 };
 

@@ -22,7 +22,7 @@ class Header extends React.Component {
                     <img src="https://img.icons8.com/color/48/000000/carpet-man.png" alt="icon" />
                 </div>
                 <div className="menuUser">
-                    {this.props.user ? <BotonesLogin /> : <BotonesNoLogin />}
+                    {this.props.user ? <BotonesLogin history={this.props.history}/> : <BotonesNoLogin />}
                 </div>
             </header>
         )

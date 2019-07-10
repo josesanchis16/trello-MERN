@@ -18,12 +18,6 @@ import Boards from './Vistas/Boards/Boards';
 import './App.css';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: ''
-    }
-  }
 
   async componentDidMount() {
     const token = localStorage.getItem('loginToken');
@@ -61,7 +55,7 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.userReducer.user
+    user: state.userReducer
   }
 }
 
