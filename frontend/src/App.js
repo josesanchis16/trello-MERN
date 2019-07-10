@@ -27,15 +27,11 @@ class App extends React.Component {
 
   async componentDidMount() {
     const token = localStorage.getItem('loginToken');
-    if (token){
+    if (token) {
       const res = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/users/getUser`, {
         token
       })
 
-      await this.setState({
-        user: res.data,
-      })
-      console.log(this.state);
       try {
         const action = {
           type: 'LOGINTOKEN',
@@ -53,7 +49,7 @@ class App extends React.Component {
       <Router>
         <Switch>
           <Route path="/" exact component={Index} />
-          <Route path="/boards" exact component={Boards}/>
+          <Route path="/boards" exact component={Boards} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Register} />
           {/* <Route path="*" component={} /> */}
