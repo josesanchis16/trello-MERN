@@ -19,29 +19,33 @@ router.get('/getAll', function (req, res, next) {
 
 router.post('/createBoard/', function (req, res, next) {
 
-  const board = req.body.board;
+  const board = req.body;
 
   console.log(board);
 
   new BoardModel({
-      ...res.body
+      ...board
     }).save()
     .then(board => {
       res.send(board);
     })
     .catch(e => {
-      res.send('3');
+      res.send('31');
       console.log('Error al guardar la board: ' + e);
     });
 });
 
 router.post('/getUserBoards', function (req, res, next) {
-  const id = req.body.id;
+  const id = req.body.userId;
+  console.log(id);
   BoardModel.find({
-      admin: id,
+      admin: id
     })
     .then(boards => res.send(boards))
-    .catch(e => console.log(e));
+    .catch(e => {
+      console.log(e)
+      res.send('32');
+    });
 })
 
 module.exports = router;

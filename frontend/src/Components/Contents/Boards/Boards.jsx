@@ -29,7 +29,7 @@ class Boards extends React.Component {
     }
 
     async componentDidMount() {
-        //Conseguimos las imagenes aleatorias para los fondos de pantalla
+        // Conseguimos las imagenes aleatorias para los fondos de pantalla
         // const res = await axios.get('https://api.unsplash.com/photos/random?count=6&client_id=24947b377516628f4f8c3d19940525dab1d5e734746767039ff261554f7b619d');
         // for (let obj of res.data) {
         //     console.log(obj.urls);
@@ -49,7 +49,9 @@ class Boards extends React.Component {
             const boards = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/boards/getUserBoards`, {
                 userId
             });
+
             console.log(boards.data);
+
             if (boards.data.length > 0) {
                 boards.data.map(async board => {
                     //Creamos la board para visualizarla
@@ -105,33 +107,23 @@ class Boards extends React.Component {
         const stared = false;
         const admin = this.props.user._id;
 
-
         const res = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/boards/createBoard`, {
             name,
             background,
             stared,
             admin
         });
+        try {
+            const action = {
+                type: 'NEWBOARD',
+                payload: res.data,
+            }
 
-        const board = {
-            'name': name,
-            'descripcion': '',
-            'background': background,
-            'stared': false,
-            'admin': this.props.user._id,
-            'people': [],
-            'listas': [],
-            'labels': [],
+            await store.dispatch(action);
+            console.log('Se ha insertado la board en el redux');
+        } catch (e) {
+            console.log('Error al guardar el tablero en Redux (errno: 33): ' + e);
         }
-
-        console.log(board);
-
-        const action = {
-            type: 'NEWBOARD',
-            payload: board,
-        }
-        await store.dispatch(action);
-        console.log('Se ha insertado la board en el redux');
 
         // const nombre = board.name;
         // const backColor = board.background;

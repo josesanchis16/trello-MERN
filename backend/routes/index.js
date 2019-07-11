@@ -78,23 +78,4 @@ router.get('/getUserFromToken/:token', function (req, res, next) {
       console.log();
     });
 })
-
-router.post('/addBoard/:id', function (req, res, next) {
-  const user = req.params.id;
-  const board = req.body.board;
-  UserModel.findOneAndUpdate({
-      _id: user
-    }, {
-      "$push": {
-        boards: board
-      }
-    }, {
-      new: true
-    })
-    .then(user => {
-      console.log(user);
-      res.send(user.boards[user.boards.length - 1]);
-    })
-});
-
 module.exports = router;
