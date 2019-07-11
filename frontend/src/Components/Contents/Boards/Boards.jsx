@@ -3,14 +3,14 @@ import axios from 'axios';
 
 import { connect } from 'react-redux';
 
-// import store from '../../../config/redux/store';
+//Importamos la store
+import store from '../../../config/redux/store';
 
 //Importamos los settings
 import settings from '../../../config/settings';
 
 //Importamos los estilos
 import './Boards.css';
-import store from '../../../config/redux/store';
 
 class Boards extends React.Component {
     constructor(props) {

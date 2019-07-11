@@ -125,26 +125,33 @@
 }
 
 .divAllBoards {
-    width: 75%;
+    padding: 20px;
     border-radius: 5px;
-    padding: 10px;
-}
-
-.divBoards {
-    background: #eeeeeed5;
-    border-radius: 10px;
-    box-shadow:2px 2px 20px 0 #454545;
-    display: flex;
-}
-
-.personalBoards, .staredBoards {
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: column;
     width: 100%;
 }
-.titleBoard{
+
+.divBoards {
+    background: #eeeeeed5;
+    border-radius: 10px;
+    box-shadow: 2px 2px 20px 0 #454545;
+    display: flex;
+    margin: 25px auto;
+    padding: 10px;
+}
+
+.personalBoards,
+.staredBoards {
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.titleBoard {
     display: flex;
     padding: 10px;
     justify-content: center;
@@ -152,20 +159,20 @@
 }
 
 .icon {
-    margin: auto 10px;
+    margin-right: 10px;
 }
 
 .boards {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, 250px);
-    grid-template-rows: repeat(auto-fit, 100px);
-    grid-gap: 10px;
-    margin: 15px;
+    grid-template-columns: repeat(auto-fill, 250px);
     justify-content: center;
+    background: red;
+    grid-column-gap: 5px;
+    grid-row-gap: 10px;
 }
 
-.starIconSelected{
+.starIconSelected {
     color: gold;
 }
 
