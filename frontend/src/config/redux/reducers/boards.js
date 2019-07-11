@@ -1,13 +1,15 @@
-function boardsReducer(state = {boards:[]}, action) {
+function boardsReducer(state = [], action) {
     switch (action.type) {
+        case 'LOADBOARDS':
+            return [
+                ...action.payload
+            ];
+
         case 'NEWBOARD':
-            console.log(state);
-            return {
-                boards: [
-                    ...state.boards,
-                    action.payload
-                ]
-            };
+            return [
+                ...state,
+                action.payload
+            ];
         default:
             return state;
     }

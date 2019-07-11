@@ -19,6 +19,7 @@ class Boards extends React.Component {
             actualBoardName: '',
             actualBoardColor: '',
             showDivNewBoard: false,
+            objBoards: [],
             boards: [],
             staredBoards: [],
             imgs: [],
@@ -30,30 +31,31 @@ class Boards extends React.Component {
 
     async componentDidMount() {
         // Conseguimos las imagenes aleatorias para los fondos de pantalla
-        // const res = await axios.get('https://api.unsplash.com/photos/random?count=6&client_id=24947b377516628f4f8c3d19940525dab1d5e734746767039ff261554f7b619d');
-        // for (let obj of res.data) {
-        //     console.log(obj.urls);
-        //     await this.setState({
-        //         imgs: [
-        //             ...this.state.imgs,
-        //             obj.urls.regular
-        //         ]
-        //     });
-        // }
+        if (process.env.NODE_ENV === 'production') {
+            const res = await axios.get('https://api.unsplash.com/photos/random?count=6&client_id=24947b377516628f4f8c3d19940525dab1d5e734746767039ff261554f7b619d');
+            for (let obj of res.data) {
+                console.log(obj.urls);
+                await this.setState({
+                    imgs: [
+                        ...this.state.imgs,
+                        obj.urls.regular
+                    ]
+                });
+            }
+        }
 
         //Comprobamos que haya un usuario en la memoria
         if (this.props.user) {
             console.log(this.props.user);
             const userId = this.props.user._id;
-            console.log(userId);
+
             const boards = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/boards/getUserBoards`, {
                 userId
             });
 
-            console.log(boards.data);
-
             if (boards.data.length > 0) {
-                boards.data.map(async board => {
+                await boards.data.map(async board => {
+
                     //Creamos la board para visualizarla
                     const boardHTML =
                         <div style={{ background: board.background }} className="board" key={board._id}>
@@ -77,14 +79,28 @@ class Boards extends React.Component {
                             boardHTML,
                             ...this.state.boards
                         ]
-                    })
+                    });
+
+                    //Guardamos el array de objetos
+                    await this.setState({
+                        objBoards: [
+                            ...this.state.objBoards,
+                            board
+                        ]
+                    });
+                });
+                //Insertamos en redux todos los objetos
+                try {
+                    console.log(this.state.objBoards);
+                    const arrObj = this.state.objBoards;
                     const action = {
-                        type: 'NEWBOARD',
-                        payload: board
+                        type: 'LOADBOARDS',
+                        payload: arrObj
                     }
                     await store.dispatch(action);
-
-                });
+                } catch (e) {
+                    console.log('Error: ' + e);
+                }
                 console.log('Se han cargado todas las boards');
             }
         }
@@ -118,29 +134,35 @@ class Boards extends React.Component {
                 type: 'NEWBOARD',
                 payload: res.data,
             }
-
             await store.dispatch(action);
+
             console.log('Se ha insertado la board en el redux');
+
+            await this.setState({
+                showDivNewBoard: false
+            });
         } catch (e) {
             console.log('Error al guardar el tablero en Redux (errno: 33): ' + e);
         }
 
-        // const nombre = board.name;
-        // const backColor = board.background;
-        // await this.setState({
-        //     boards: [
-        //         <div style={{ background: backColor }} className="board" key={board.id}>
-        //             <p>{nombre}</p>
-        //             <p className="starDiv"><i className="fas fa-star starIcon" id={board.id} onClick={this.btnStared}></i></p>
-        //         </div>,
-        //         ...this.state.boards,
-        //     ]
-        // });
+        /* Cambiar estas lineas, esto es un apaño chapuza */
 
-        // await this.setState({
-        //     showDivNewBoard: false,
-        //     actualBoardColor: '#eee',
-        // });
+        await this.setState({
+            boards: [
+                <div style={{ background: res.data.background }} className="board" key={res.data.id}>
+                    <p>{res.data.name}</p>
+                    <p className="starDiv"><i className="fas fa-star starIcon" id={res.data.id} onClick={this.btnStared}></i></p>
+                </div>,
+                ...this.state.boards,
+            ]
+        });
+
+        await this.setState({
+            showDivNewBoard: false,
+            actualBoardColor: '#eee',
+        });
+
+        /* Cambiar hasta esta linea */
     }
 
     // clearLastInput() {
@@ -226,7 +248,6 @@ class Boards extends React.Component {
                                 <li style={{ background: `url('${this.state.imgs[3]}')` }} className="imgBackground actualBoardColor" onClick={this.handleImage}></li>
                                 <li style={{ background: `url('${this.state.imgs[4]}')` }} className="imgBackground actualBoardColor" onClick={this.handleImage}></li>
                                 <li style={{ background: `url('${this.state.imgs[5]}')` }} className="imgBackground actualBoardColor" onClick={this.handleImage}></li>
-                                {/* <li className="actualBoardColor"><input onChange={this.handleSelectionColor} className="selectCustomColor" type="color" name="color" id="color"/></li> */}
                             </ul>
                         </div>
                         <div className="previewBoard">
@@ -276,6 +297,7 @@ class Boards extends React.Component {
 const mapStateToProps = state => {
     return ({
         user: state.userReducer.loginToken,
+        boards: state.boardsReducer.boards
     })
 }
 
