@@ -141,6 +141,7 @@
     display: flex;
     margin: 25px auto;
     padding: 10px;
+    width: 90%
 }
 
 .personalBoards,
@@ -167,7 +168,6 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, 250px);
     justify-content: center;
-    background: red;
     grid-column-gap: 5px;
     grid-row-gap: 10px;
 }
@@ -190,8 +190,9 @@
 
 .board:hover,
 .previewBoard:hover {
-    box-shadow: 0 0 10px 0 #454545;
+    box-shadow: 0 0 20px 0 #454545;
     transition: 0.3s;
+    z-index: 1;
 }
 
 .board p {
@@ -231,4 +232,30 @@
 .starDiv:hover .starIcon {
     font-size: 1.2em;
     transition: 0.5s;
+}
+
+@media (max-width: 750px) {
+
+    .divAllBoards {
+        padding: 0;
+    }
+
+    .divBoards {
+        box-shadow: none;
+    }
+
+    .boards {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .board,
+    .boardPrincipal {
+        margin: 2px auto;
+        border-radius: 10px;
+    }
+
+    .boardPrincipal {
+        border: 1px solid #454545;
+    }
 }

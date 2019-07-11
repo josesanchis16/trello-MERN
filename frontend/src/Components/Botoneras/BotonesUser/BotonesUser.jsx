@@ -46,7 +46,9 @@ class BotonesUser extends React.Component {
                             <li className="static">{this.props.user.loginToken.nick}</li>
                             <hr />
                             <li className="btnPerfil btn">Profile</li>
+                            <li className="btnPerfil btn disabled">Change languaje...</li>
                             <hr />
+                            <li className="btnLogout btn disabled">Help</li>
                             <li onClick={this.logout} className="btnLogout btn">Logout</li>
                         </ul>
                     </div>

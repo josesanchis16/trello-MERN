@@ -97,3 +97,12 @@ button a {
     width: 435px;
     text-align: center;
 }
+
+@media (max-width: 750px) {
+    .bodyContent {
+        padding: 0;
+        background: #eee;
+        transition: 0.5s;
+        height: unset;
+    }
+}

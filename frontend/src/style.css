@@ -7,6 +7,7 @@
   user-select: none;
   color: #293d61;
   font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
 }
 
 html {
