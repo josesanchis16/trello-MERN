@@ -23,10 +23,13 @@ class Boards extends React.Component {
             boards: [],
             staredBoards: [],
             imgs: [],
+            isLoad: false,
         }
         this.list = React.createRef();
         this.boardName = React.createRef();
         this.btnAceptar = React.createRef();
+        this.imagesLoaded = false;
+        this.boardsLoaded = false;
     }
 
     async componentDidMount() {
