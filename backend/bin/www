@@ -8,13 +8,13 @@ var app = require('../app');
 var debug = require('debug')('backend:server');
 var http = require('http');
 
-var port = require('../config/settings').BACKEND.port;
+var portBackend = require('../config/settings').BACKEND.port;
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || port);
+var port = normalizePort(process.env.PORT || portBackend);
 app.set('port', port);
 
 /**

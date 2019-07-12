@@ -13,7 +13,6 @@ app.use(function (req, res, next) { // permite peticiones de otros dominios
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH");
     res.header("Access-Control-Allow-Headers", 'Content-Type, Authorization, Content-Length, X-Requested-With');
-
     next();
 });
 
