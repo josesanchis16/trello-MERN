@@ -61,9 +61,9 @@ class Boards extends React.Component {
 
                     //Creamos la board para visualizarla
                     const boardHTML =
-                        <div style={{ background: board.background }} className="board" key={board._id}>
+                        <div onClick={this.lists} style={{ background: board.background }} className="board" key={board._id} id={board._id}>
                             <p>{board.name}</p>
-                            <p className="starDiv"><i style={{ color: (board.stared ? '#FFD800' : '#eee') }} className="fas fa-star starIcon" id={board.id} onClick={this.btnStared}></i></p>
+                            <p className="starDiv" onClick={this.staredBoard}><i style={{ color: (board.stared ? '#FFD800' : '#eee') }} className="fas fa-star starIcon" id={board.id} onClick={this.btnStared}></i></p>
                         </div>;
 
                     //Insertamos las que estan stared en su array correspondiente
@@ -109,6 +109,25 @@ class Boards extends React.Component {
         }
     }
 
+    lists = async (e) => {
+        console.log(e.target);
+        try {
+            const action = {
+                type: 'SETBOARDID',
+                payload: e.target.id
+            }
+            await store.dispatch(action);
+            console.log('Se ha seleccionado la tabla correctamente');
+        } catch (e) {
+            console.log('Error al seleccionar tabla: ' + e);
+        }
+        this.props.history.push('/boards/lists');
+    }
+
+    staredBoard = () => {
+        console.log('stared');
+    }
+
     newBoard = async () => {
         await this.setState({
             showDivNewBoard: true,
@@ -144,6 +163,7 @@ class Boards extends React.Component {
             await this.setState({
                 showDivNewBoard: false
             });
+            this.props.history.push('/boards');
         } catch (e) {
             console.log('Error al guardar el tablero en Redux (errno: 33): ' + e);
         }
@@ -269,6 +289,9 @@ class Boards extends React.Component {
                     {/* Stared boards */}
                     {this.state.staredBoards.length > 0 &&
                         <div className="staredBoards divBoards">
+                            <div className="divBusqueda">
+                                <i class="fas fa-search"></i>
+                            </div>
                             <div className="titleBoard">
                                 <i className="fas fa-star icon"></i>
                                 <h2>Stared boards</h2>
@@ -280,6 +303,9 @@ class Boards extends React.Component {
                     }
                     {/* Personal boards */}
                     <div className="personalBoards divBoards">
+                        <div className="divBusqueda">
+                            <i class="fas fa-search"></i>
+                        </div>
                         <div className="titleBoard">
                             <i className="fas fa-user icon"></i>
                             <h2>Your boards</h2>

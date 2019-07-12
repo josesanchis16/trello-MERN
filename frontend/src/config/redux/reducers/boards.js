@@ -10,6 +10,13 @@ function boardsReducer(state = [], action) {
                 ...state,
                 action.payload
             ];
+
+        case 'SETBOARDID':
+            return [{
+                    boardID: action.payload
+                },
+                ...state
+            ]
         default:
             return state;
     }

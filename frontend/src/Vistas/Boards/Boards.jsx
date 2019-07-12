@@ -8,7 +8,7 @@ import BoardsContent from '../../Components/Contents/Boards/Boards';
 class Boards extends React.Component {
 
     componentDidMount() {
-        if (!this.props.user) {
+        if (!this.props.user.loginToken) {
             this.props.history.push('/');
         }
     }
@@ -17,7 +17,7 @@ class Boards extends React.Component {
         return (
             <div className="page">
                 <Header history={this.props.history} />
-                <BoardsContent/>
+                <BoardsContent history={this.props.history} />
             </div>
         )
     }
@@ -25,7 +25,8 @@ class Boards extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.userReducer.loginToken
+        user: state.userReducer
+        
     };
 };
 

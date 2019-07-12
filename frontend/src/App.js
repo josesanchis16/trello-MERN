@@ -1,10 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom'
 
 import settings from './config/settings';
 
-import { connect } from 'react-redux';
+import {
+  connect
+} from 'react-redux';
 
 import store from './config/redux/store';
 
@@ -13,6 +19,7 @@ import Index from './Vistas/Index/Index';
 import Login from './Vistas/Login/Login';
 import Register from './Vistas/Register/Register';
 import Boards from './Vistas/Boards/Boards';
+import Lists from './Components/Contents/Lists/Lists';
 
 //Importacion de estilos
 import './App.css';
@@ -39,16 +46,16 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <Router>
-        <Switch>
-          <Route path="/" exact component={Index} />
-          <Route path="/boards" exact component={Boards} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/signup" exact component={Register} />
-          {/* <Route path="*" component={} /> */}
-        </Switch>
-      </Router>
+    return (<Router >
+      <Switch >
+        <Route path="/" exact component={Index} />
+        <Route path="/boards" exact component={Boards} />
+        <Route path="/boards/lists" component={Lists} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/signup" exact component={Register} />
+        {/* <Route path="*" component={} /> */}
+      </Switch>
+    </Router>
     );
   }
 }
