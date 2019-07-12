@@ -9,6 +9,7 @@ import IndexContent from '../../Components/Contents/Index/Index';
 class Index extends React.Component {
 
     componentDidMount() {
+        console.log(process.env.NODE_ENV);
         if (this.props.user) {
             this.props.history.push('/boards');
         }
@@ -17,7 +18,7 @@ class Index extends React.Component {
     render() {
         return (
             <div className="page">
-                <Header/>
+                <Header />
                 {this.props.user ? <Link to="/boards" /> : <IndexContent />}
             </div>
         )
