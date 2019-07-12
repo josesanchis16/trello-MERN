@@ -103,6 +103,5 @@ button a {
         padding: 0;
         background: #eee;
         transition: 0.5s;
-        height: unset;
     }
 }

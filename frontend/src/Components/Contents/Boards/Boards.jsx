@@ -147,20 +147,20 @@ class Boards extends React.Component {
 
         /* Cambiar estas lineas, esto es un apaño chapuza */
 
-        await this.setState({
-            boards: [
-                <div style={{ background: res.data.background }} className="board" key={res.data.id}>
-                    <p>{res.data.name}</p>
-                    <p className="starDiv"><i className="fas fa-star starIcon" id={res.data.id} onClick={this.btnStared}></i></p>
-                </div>,
-                ...this.state.boards,
-            ]
-        });
+        // await this.setState({
+        //     boards: [
+        //         <div style={{ background: res.data.background }} className="board" key={res.data.id}>
+        //             <p>{res.data.name}</p>
+        //             <p className="starDiv"><i className="fas fa-star starIcon" id={res.data.id} onClick={this.btnStared}></i></p>
+        //         </div>,
+        //         ...this.state.boards,
+        //     ]
+        // });
 
-        await this.setState({
-            showDivNewBoard: false,
-            actualBoardColor: '#eee',
-        });
+        // await this.setState({
+        //     showDivNewBoard: false,
+        //     actualBoardColor: '#eee',
+        // });
 
         /* Cambiar hasta esta linea */
     }
@@ -264,7 +264,7 @@ class Boards extends React.Component {
                 </div>
                 <div className="divAllBoards">
                     {/* Stared boards */}
-                    {this.state.staredBoards &&
+                    {this.state.staredBoards.length > 0 &&
                         <div className="staredBoards divBoards">
                             <div className="titleBoard">
                                 <i className="fas fa-star icon"></i>
