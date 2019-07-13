@@ -19,7 +19,7 @@ import Index from './Vistas/Index/Index';
 import Login from './Vistas/Login/Login';
 import Register from './Vistas/Register/Register';
 import Boards from './Vistas/Boards/Boards';
-import Lists from './Components/Contents/Lists/Lists';
+import Lists from './Vistas/Lists/Lists';
 
 //Importacion de estilos
 import './App.css';
