@@ -2,9 +2,12 @@
     width: 100%;
     height: 100%;
     overflow: auto;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
 }
 
 .allLists {
+    background-repeat: no-repeat;
     display: flex;
     padding: 25px;
     width: max-content;
@@ -50,7 +53,11 @@
 
 .taskName {
     padding: 5px;
+    word-wrap: ;
+
 }
+
+.taskName p {}
 
 .divThinks {
     display: flex;
