@@ -6,10 +6,6 @@ import Header from '../../Components/Headers/Header';
 import ListsContent from '../../Components/Contents/Lists/Lists';
 
 class Lists extends React.Component {
-
-    componentDidMount() {
-        console.log(this.props.board);
-    }
     render() {
         return (
             <div className="page">

@@ -289,9 +289,9 @@ class Boards extends React.Component {
                     {/* Stared boards */}
                     {this.state.staredBoards.length > 0 &&
                         <div className="staredBoards divBoards">
-                            <div className="divBusqueda">
+                            {/* <div className="divBusqueda">
                                 <i class="fas fa-search"></i>
-                            </div>
+                            </div> */}
                             <div className="titleBoard">
                                 <i className="fas fa-star icon"></i>
                                 <h2>Stared boards</h2>
@@ -303,9 +303,9 @@ class Boards extends React.Component {
                     }
                     {/* Personal boards */}
                     <div className="personalBoards divBoards">
-                        <div className="divBusqueda">
+                        {/* <div className="divBusqueda">
                             <i class="fas fa-search"></i>
-                        </div>
+                        </div> */}
                         <div className="titleBoard">
                             <i className="fas fa-user icon"></i>
                             <h2>Your boards</h2>
