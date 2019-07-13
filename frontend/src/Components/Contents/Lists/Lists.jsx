@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 
 //Importamos los estilos
 import './Lists.css';
+import store from '../../../config/redux/store';
+import Axios from 'axios';
+import settings from '../../../config/settings';
 
 class Lists extends React.Component {
     constructor(props) {
@@ -20,17 +23,54 @@ class Lists extends React.Component {
         console.log(this.props);
         this.props.board.listas.map(list => {
             // Aqui el hmtl de una lista previamente creada
-        })
+        });
     }
 
-    listHTML = ({ }) => {
-
+    listHTML = (list) => {
+        // <div className="list">
+        //     <div className="listName">
+        //         <p>{list.name}</p>
+        //     </div>
+        //     <div className="listTasks">
+        //         <div className="task">
+        //             <div className="taskName">
+        //                 Esto es un texto largo para provar hasta donde podemos escribir el titulo de una tarea
+        //                         </div>
+        //             <hr />
+        //             <div className="divThinks">
+        //                 <i className="far fa-calendar-alt"></i>
+        //                 <i className="fas fa-stream"></i>
+        //                 <i className="far fa-comment"></i>
+        //                 <i className="far fa-check-square"></i>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </div>
     }
 
     btnAceptar = async () => {
 
         if (this.state.listName.length > 0) {
             //const html = this.listHTML();
+
+            const list = {
+                parentID: this.props.board._id,
+                name: this.state.listName,
+                tareas: []
+            };
+
+            const newList = await Axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/boards/newList`, {
+                list
+            });
+            console.log(newList.data);
+
+            // const action = {
+            //     type: 'NEWLIST',
+            //     payload: list
+            // }
+            // store.dispatch(action);
+
+            console.log('Se ha dispachado la accion en la store');
 
             //action
         }
@@ -63,25 +103,6 @@ class Lists extends React.Component {
             <div className="divLists" style={{ background: this.props.board.background }}>
                 <div className="allLists">
                     {/* Aqui las listas */}
-                    <div className="list">
-                        <div className="listName">
-                            <p>To do</p>
-                        </div>
-                        <div className="listTasks">
-                            <div className="task">
-                                <div className="taskName">
-                                    Esto es un texto largo para provar hasta donde podemos escribir el titulo de una tarea
-                                </div>
-                                <hr/>
-                                <div className="divThinks">
-                                <i className="far fa-calendar-alt"></i>
-                                <i className="fas fa-stream"></i>
-                                <i className="far fa-comment"></i>
-                                <i className="far fa-check-square"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div className="list">
                         <div className="newList" style={{ display: this.state.showNewListInput ? 'flex' : 'none' }}>
                             <div>

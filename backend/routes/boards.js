@@ -46,6 +46,25 @@ router.post('/getUserBoards', function (req, res, next) {
       console.log(e)
       res.send('32');
     });
-})
+});
+
+router.post('/newList', function (req, res, next) {
+  const list = req.body.list;
+  BoardModel.updateOne({
+      _id: list.parentID,
+    }, {
+      $push:{
+        listas:[
+          list
+        ]
+      }
+    }, {
+      new: true
+    })
+    .then(console.log)
+    .catch(e => {
+      console.log(e);
+    });
+});
 
 module.exports = router;
