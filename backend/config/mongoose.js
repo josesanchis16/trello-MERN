@@ -8,6 +8,7 @@ console.log(process.env.NODE_ENV === 'production' ? 'Atlas' : 'Local');
 mongoose.connect(url, {
         useCreateIndex: true,
         useNewUrlParser: true,
+        useFindAndModify: false,
     }).then(() => console.log('Conexión establecida con exito'))
     .catch(err => console.log('Error al intentar conectar con mongo: ' + err));
 module.exports = mongoose;

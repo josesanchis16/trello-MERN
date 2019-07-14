@@ -7,6 +7,7 @@ import './Lists.css';
 import store from '../../../config/redux/store';
 import Axios from 'axios';
 import settings from '../../../config/settings';
+import { timingSafeEqual } from 'crypto';
 
 class Lists extends React.Component {
     constructor(props) {
@@ -14,38 +15,63 @@ class Lists extends React.Component {
         this.state = {
             showNewListInput: false,
             lists: [],
+            tasks: [],
             listName: '',
         }
         this.inputName = React.createRef();
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         console.log(this.props);
-        this.props.board.listas.map(list => {
-            // Aqui el hmtl de una lista previamente creada
-        });
+        if (this.props.board) {
+            console.log('Este tablero tiene ' + this.props.board.listas.length + ' listas');
+            const allLists = [];
+            this.props.board.listas.map(list => {
+
+                if (list.tareas.length > 0) {
+
+                    list.tareas.map(tarea => {
+                        allLists.push(
+                            <div className="list">
+                                <div className="listName">
+                                    <p>{list.name}</p>
+                                </div>
+
+                                <div className="listTasks">
+                                    <div className="task">
+                                        <div className="taskName">
+                                            {tarea.name}
+                                        </div>
+                                        <hr />
+                                    </div>
+                                </div>
+                                <div className="newTask" onClick={this.newTask}>
+                                    <p>+ Add new task</p>
+                                </div>
+                            </div>);
+                    });
+                } else {
+                    allLists.push(
+                        <div className="list">
+                            <div className="listName">
+                                <p>{list.name}</p>
+                            </div>
+                            <div className="newTask" onClick={this.newTask}>
+                                <p>+ Add new task</p>
+                            </div>
+                        </div>
+                    )
+                }
+            });
+
+            await this.setState({
+                lists: allLists
+            })
+        }
     }
 
-    listHTML = (list) => {
-        // <div className="list">
-        //     <div className="listName">
-        //         <p>{list.name}</p>
-        //     </div>
-        //     <div className="listTasks">
-        //         <div className="task">
-        //             <div className="taskName">
-        //                 Esto es un texto largo para provar hasta donde podemos escribir el titulo de una tarea
-        //                         </div>
-        //             <hr />
-        //             <div className="divThinks">
-        //                 <i className="far fa-calendar-alt"></i>
-        //                 <i className="fas fa-stream"></i>
-        //                 <i className="far fa-comment"></i>
-        //                 <i className="far fa-check-square"></i>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
+    newTask = () => {
+        console.log('Esta feature esta por programar, tenga paciencia. Gracias.');
     }
 
     btnAceptar = async () => {
@@ -59,25 +85,41 @@ class Lists extends React.Component {
                 tareas: []
             };
 
-            const newList = await Axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/boards/newList`, {
+            const newBoard = await Axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/boards/newList`, {
                 list
             });
-            console.log(newList.data);
+            console.log(newBoard.data);
+            if (newBoard.data) console.log('Se ha insertado en la base de datos');
 
-            // const action = {
-            //     type: 'NEWLIST',
-            //     payload: list
-            // }
-            // store.dispatch(action);
+            const action = {
+                type: 'NEWLIST',
+                payload: newBoard.data
+            }
+            store.dispatch(action);
 
             console.log('Se ha dispachado la accion en la store');
 
-            //action
+            //Tarea actual
+            const tarea = this.props.board.listas[this.props.board.listas.length - 1];
+
+            const listHTML =
+                <div className="list">
+                    <div className="listName">
+                        <p>{tarea.name}</p>
+                    </div>
+                    <div className="newTask" onClick={this.newTask}>
+                        <p>+ Add new task</p>
+                    </div>
+                </div>;
+
+
+            await this.setState({
+                showNewListInput: !this.state.showNewListInput,
+                lists: [...this.state.lists, listHTML]
+            });
+
         }
 
-        await this.setState({
-            showNewListInput: !this.state.showNewListInput
-        });
     }
 
     btnCancelar = async () => {
@@ -103,6 +145,7 @@ class Lists extends React.Component {
             <div className="divLists" style={{ background: this.props.board.background }}>
                 <div className="allLists">
                     {/* Aqui las listas */}
+                    {this.state.lists}
                     <div className="list">
                         <div className="newList" style={{ display: this.state.showNewListInput ? 'flex' : 'none' }}>
                             <div>

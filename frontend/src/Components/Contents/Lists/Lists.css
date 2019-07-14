@@ -45,8 +45,9 @@
 }
 
 .task {
-    background: #eeeeee55;
+    background: #eeeeee75;
     margin: 5px 2px;
+    border: 1px solid #acacac;
     border-radius: 5px;
 
 }
@@ -58,6 +59,18 @@
 }
 
 .taskName p {}
+
+.newTask {
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+    transition: 0.5s;
+}
+
+.newTask:hover {
+    background: #eeeeee75;
+    transition: 0.5s;
+}
 
 .divThinks {
     display: flex;
@@ -119,4 +132,10 @@
 
 .btnNewList {
     padding: 5px;
+    transition: 0.5s;
+}
+
+.btnNewList:hover {
+    background: #eeeeee75;
+    transition: 0.5s;
 }

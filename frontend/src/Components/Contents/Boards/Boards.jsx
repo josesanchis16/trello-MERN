@@ -61,9 +61,11 @@ class Boards extends React.Component {
 
                     //Creamos la board para visualizarla
                     const boardHTML =
-                        <div onClick={this.lists} style={{ background: board.background }} className="board" key={board._id} id={board._id}>
+                        <div style={{ background: board.background }} className="board" key={board._id} id={board._id} onClick={this.lists}>
                             <p>{board.name}</p>
-                            <p className="starDiv" onClick={this.staredBoard}><i style={{ color: (board.stared ? '#FFD800' : '#eee') }} className="fas fa-star starIcon" id={board.id} onClick={this.btnStared}></i></p>
+                            <p className="starDiv" onClick={this.staredBoard}>
+                                <i style={{ color: (board.stared ? '#FFD800' : '#eee') }} className="fas fa-star starIcon" id={board._id} onClick={this.btnStared}></i>
+                            </p>
                         </div>;
 
                     //Insertamos las que estan stared en su array correspondiente
@@ -170,20 +172,20 @@ class Boards extends React.Component {
 
         /* Cambiar estas lineas, esto es un apaño chapuza */
 
-        // await this.setState({
-        //     boards: [
-        //         <div style={{ background: res.data.background }} className="board" key={res.data.id}>
-        //             <p>{res.data.name}</p>
-        //             <p className="starDiv"><i className="fas fa-star starIcon" id={res.data.id} onClick={this.btnStared}></i></p>
-        //         </div>,
-        //         ...this.state.boards,
-        //     ]
-        // });
+        await this.setState({
+            boards: [
+                <div onClick={this.lists} style={{ background: res.data.background }} className="board" key={res.data._id} id={res.data._id}>
+                    <p>{res.data.name}</p>
+                    <p className="starDiv"><i className="fas fa-star starIcon" id={res.data.id} onClick={this.btnStared}></i></p>
+                </div>,
+                ...this.state.boards,
+            ]
+        });
 
-        // await this.setState({
-        //     showDivNewBoard: false,
-        //     actualBoardColor: '#eee',
-        // });
+        await this.setState({
+            showDivNewBoard: false,
+            actualBoardColor: '#eee',
+        });
 
         /* Cambiar hasta esta linea */
     }

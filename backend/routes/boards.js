@@ -50,20 +50,24 @@ router.post('/getUserBoards', function (req, res, next) {
 
 router.post('/newList', function (req, res, next) {
   const list = req.body.list;
-  BoardModel.updateOne({
+  BoardModel.findOneAndUpdate({
       _id: list.parentID,
     }, {
-      $push:{
-        listas:[
+      $push: {
+        listas: [
           list
         ]
       }
     }, {
       new: true
     })
-    .then(console.log)
+    .then(board => {
+      console.log('Lista insertada correctamente en la base de datos');
+      res.send(board);
+    })
     .catch(e => {
-      console.log(e);
+      console.log('Se ha producido un error en la insercion de la base de datos: ' + e);
+      res.send('34');
     });
 });
 
