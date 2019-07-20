@@ -51,7 +51,9 @@ class Lists extends React.Component {
                                 <p>{list.name}</p>
                             </div>
                             <div className="listTasks">
-                                {allTasks}
+                                <div>
+                                    {allTasks}
+                                </div>
                             </div>
                             <NewTask list_id={list._id} />
                         </div>
