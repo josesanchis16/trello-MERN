@@ -1,13 +1,16 @@
 import React from 'react';
-
+import Axios from 'axios';
 import { connect } from 'react-redux';
+
+//Importamos los componentes
+import NewTask from '../newTask/newTask';
 
 //Importamos los estilos
 import './Lists.css';
+
 import store from '../../../config/redux/store';
-import Axios from 'axios';
+
 import settings from '../../../config/settings';
-import { timingSafeEqual } from 'crypto';
 
 class Lists extends React.Component {
     constructor(props) {
@@ -24,41 +27,42 @@ class Lists extends React.Component {
     async componentDidMount() {
         console.log(this.props);
         if (this.props.board) {
-            console.log('Este tablero tiene ' + this.props.board.listas.length + ' listas');
             const allLists = [];
+            const allTasks = [];
             this.props.board.listas.map(list => {
 
                 if (list.tareas.length > 0) {
 
                     list.tareas.map(tarea => {
-                        allLists.push(
-                            <div className="list">
-                                <div className="listName">
-                                    <p>{list.name}</p>
-                                </div>
 
-                                <div className="listTasks">
-                                    <div className="task">
-                                        <div className="taskName">
-                                            {tarea.name}
-                                        </div>
-                                        <hr />
-                                    </div>
+                        //Insertamos todas las tareas
+                        allTasks.push(
+                            <div className="task">
+                                <div className="taskName">
+                                    {tarea.name}
                                 </div>
-                                <div className="newTask" onClick={this.newTask}>
-                                    <p>+ Add new task</p>
-                                </div>
-                            </div>);
+                            </div>
+                        );
                     });
+                    //Insertamos todas las listas con las tareas de cada lista
+                    allLists.push(
+                        <div className="list">
+                            <div className="listName">
+                                <p>{list.name}</p>
+                            </div>
+                            <div className="listTasks">
+                                {allTasks}
+                            </div>
+                            <NewTask list_id={list._id} />
+                        </div>
+                    );
                 } else {
                     allLists.push(
                         <div className="list">
                             <div className="listName">
                                 <p>{list.name}</p>
                             </div>
-                            <div className="newTask" onClick={this.newTask}>
-                                <p>+ Add new task</p>
-                            </div>
+                            <NewTask list_id={list._id} />
                         </div>
                     )
                 }
@@ -67,11 +71,8 @@ class Lists extends React.Component {
             await this.setState({
                 lists: allLists
             })
-        }
-    }
 
-    newTask = () => {
-        console.log('Esta feature esta por programar, tenga paciencia. Gracias.');
+        }
     }
 
     btnAceptar = async () => {
@@ -80,6 +81,7 @@ class Lists extends React.Component {
             //const html = this.listHTML();
 
             const list = {
+                _id: new Date().getTime(),
                 parentID: this.props.board._id,
                 name: this.state.listName,
                 tareas: []
@@ -107,9 +109,7 @@ class Lists extends React.Component {
                     <div className="listName">
                         <p>{tarea.name}</p>
                     </div>
-                    <div className="newTask" onClick={this.newTask}>
-                        <p>+ Add new task</p>
-                    </div>
+                    <NewTask list_id={list._id} />
                 </div>;
 
 

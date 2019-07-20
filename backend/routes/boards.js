@@ -24,8 +24,8 @@ router.post('/createBoard/', function (req, res, next) {
   console.log(board);
 
   new BoardModel({
-      ...board
-    }).save()
+    ...board
+  }).save()
     .then(board => {
       res.send(board);
     })
@@ -39,8 +39,8 @@ router.post('/getUserBoards', function (req, res, next) {
   const id = req.body.userId;
   console.log(id);
   BoardModel.find({
-      admin: id
-    })
+    admin: id
+  })
     .then(boards => res.send(boards))
     .catch(e => {
       console.log(e)
@@ -51,8 +51,8 @@ router.post('/getUserBoards', function (req, res, next) {
 router.post('/newList', function (req, res, next) {
   const list = req.body.list;
   BoardModel.findOneAndUpdate({
-      _id: list.parentID,
-    }, {
+    _id: list.parentID,
+  }, {
       $push: {
         listas: [
           list
@@ -70,5 +70,28 @@ router.post('/newList', function (req, res, next) {
       res.send('34');
     });
 });
+
+router.post('/newTask', function (req, res) {
+  const task = req.body.task;
+
+  //db.getCollection('boards').findOneAndUpdate({_id : ObjectId("5d33235bf8881144d22a0cdb"), "listas.tareas._id" : 1563633483070.0}, {$push : {"listas.$.tareas" : {'name' : 'id_de_prueba'}}}, {new:true})
+  BoardModel.findOneAndUpdate({
+    _id: task.board_id,
+    "listas._id": task.list_id
+  }, { 
+    $push: { 
+      "listas.$.tareas" : task 
+    } 
+  },
+    { new: true })
+    .then(board => {
+      console.log(board);
+      res.send(board);
+    })
+    .catch(e => {
+      console.log('No se ha podido insertar la tarea en la base de datos');
+      res.send('35');
+    });
+})
 
 module.exports = router;

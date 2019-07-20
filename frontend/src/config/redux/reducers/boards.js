@@ -1,7 +1,3 @@
-import {
-    strictEqual
-} from "assert";
-
 function boardsReducer(state = [], action) {
     switch (action.type) {
         case 'LOADBOARDS':
@@ -17,15 +13,29 @@ function boardsReducer(state = [], action) {
 
         case 'SETBOARDID':
             return [{
-                    boardID: action.payload
-                },
-                ...state
+                boardID: action.payload
+            },
+            ...state
             ];
         case 'NEWLIST':
-            const boardId = state[0].boardID;
+            const boardList = state[0].boardID;
             return state.map((board, index) => {
-                if (board._id === boardId) {
+                if (board._id === boardList) {
                     return action.payload
+                }
+                return state[index];
+            });
+        case 'NEWTASK':
+            const boardTask = state[0].boardID;
+            return state.map((board, index) => {
+                if (board._id === boardTask) {
+                    board.listas.map((lista, index) => {
+                        if (lista._id === action.listId) {
+                            lista.tareas.push(action.payload);
+                            return;
+                        }
+                        return board.listas[index];
+                    });
                 }
                 return state[index];
             });
