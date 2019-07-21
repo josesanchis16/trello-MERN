@@ -67,7 +67,7 @@ class newTask extends React.Component {
                 showNewTask: !this.state.showNewTask
             });
 
-            this.taskNameRef.current.value = '';
+            this.props.callback();
         }
 
         if (e.key === 'Escape') {
@@ -75,7 +75,6 @@ class newTask extends React.Component {
             await this.setState({
                 showNewTask: !this.state.showNewTask
             });
-            this.taskNameRef.current.value = '';
         }
     }
 
@@ -83,7 +82,7 @@ class newTask extends React.Component {
         return (
             <div className="newTask">
                 <div style={{ display: this.state.showNewTask ? 'block' : 'none' }}>
-                    <input className="newTaskInput" type="text" name="taskName" id="tast_name" ref={this.taskNameRef} onKeyUp={this.handleInputTask} />
+                    <input className="newTaskInput" type="text" name="taskName" id="tast_name" ref={this.taskNameRef} onKeyUp={this.handleInputTask}/>
                 </div>
                 <p onClick={this.handleSubmit} style={{ display: this.state.showNewTask ? 'none' : 'block' }} board_id={this.props.board._id} list_id={this.props.list_id}>+ Add new task</p>
             </div>

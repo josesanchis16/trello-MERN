@@ -25,19 +25,26 @@ class Lists extends React.Component {
     }
 
     async componentDidMount() {
-        console.log(this.props);
+        this.cargarListas();
+    }
+
+    callbackChild = async () => {
+        await this.cargarListas();
+        return true;
+    }
+
+    cargarListas = async () => {
         if (this.props.board) {
             const allLists = [];
-            const allTasks = [];
-            this.props.board.listas.map(list => {
-
+            this.props.board.listas.map((list, index) => {
                 if (list.tareas.length > 0) {
 
-                    list.tareas.map(tarea => {
+                    const allTasks = [];
+                    list.tareas.map((tarea, index) => {
 
                         //Insertamos todas las tareas
                         allTasks.push(
-                            <div className="task">
+                            <div className="task" key={index}>
                                 <div className="taskName">
                                     {tarea.name}
                                 </div>
@@ -46,7 +53,7 @@ class Lists extends React.Component {
                     });
                     //Insertamos todas las listas con las tareas de cada lista
                     allLists.push(
-                        <div className="list">
+                        <div className="list" key={index + allTasks.length}>
                             <div className="listName">
                                 <p>{list.name}</p>
                             </div>
@@ -55,7 +62,7 @@ class Lists extends React.Component {
                                     {allTasks}
                                 </div>
                             </div>
-                            <NewTask list_id={list._id} />
+                            <NewTask list_id={list._id} callback={this.callbackChild} />
                         </div>
                     );
                 } else {
@@ -64,7 +71,7 @@ class Lists extends React.Component {
                             <div className="listName">
                                 <p>{list.name}</p>
                             </div>
-                            <NewTask list_id={list._id} />
+                            <NewTask list_id={list._id} callback={this.callbackChild} />
                         </div>
                     )
                 }
@@ -111,7 +118,7 @@ class Lists extends React.Component {
                     <div className="listName">
                         <p>{tarea.name}</p>
                     </div>
-                    <NewTask list_id={list._id} />
+                    <NewTask list_id={list._id} callback={this.callbackChild} />
                 </div>;
 
 
