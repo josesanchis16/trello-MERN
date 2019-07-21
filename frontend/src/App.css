@@ -101,7 +101,23 @@ button a {
 @media (max-width: 750px) {
     .bodyContent {
         padding: 0;
-        background: #eee;
         transition: 0.5s;
+        animation: move;
+        animation-duration: 40s;
+        animation-iteration-count: infinite;
+    }
+
+    @keyframes move {
+        0% {
+            background-position : right;
+        }
+
+        50% {
+            background-position : left;
+        }
+
+        100% {
+            background-position : right;
+        }
     }
 }
