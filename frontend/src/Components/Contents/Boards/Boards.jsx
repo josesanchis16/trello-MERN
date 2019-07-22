@@ -146,12 +146,14 @@ class Boards extends React.Component {
         const background = this.state.actualBoardColor;
         const stared = false;
         const admin = this.props.user._id;
+        const people = [this.props.user._id];
 
         const res = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/boards/createBoard`, {
             name,
             background,
             stared,
-            admin
+            admin,
+            people
         });
         try {
             const action = {

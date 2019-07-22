@@ -20,13 +20,46 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    padding: 25px;
     display: flex;
+    flex-direction: column;
     background-repeat: no-repeat !important;
     background-size: cover !important;
 }
 
+.actionBar {
+    background: #ffffff49;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+.actionBar > div {
+    display: flex;
+    padding: 5px;
+}
+
+.item {
+    background: #eeeeee75;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 20px;
+    margin: auto 5px;
+    height: 32px;
+}
+
+.tableName {
+    width: 200px;
+}
+
+.tablePeople{
+    display: flex;
+}
 .allLists {
+    padding: 25px;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -97,7 +130,7 @@
     width: 100%;
 }
 
-.newTask:hover{
+.newTask:hover {
     background: #eeeeee75;
     transition: 0.5s;
 }

@@ -85,6 +85,28 @@ class Lists extends React.Component {
     render() {
         return (
             <div className="divLists" style={{ background: this.props.board.background }}>
+                <div className="actionBar">
+                    <div>
+                        <div className="tableName item">
+                            <div>{this.props.board.name}</div>
+                        </div>
+                        <div className="tableStar item">
+
+                            <i className="far fa-star"></i>
+                        </div>
+                        <div className="tablePeople">
+                            <div className="people item">
+                                {this.state.people}
+                            </div>
+                            <div className="invitePeople item">
+                                <p onClick={this.invitePeople}>Invite</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p className="moreOption item">+</p>
+                    </div>
+                </div>
                 <div className="allLists">
                     {/* Aqui las listas */}
                     {this.state.lists}
