@@ -103,8 +103,30 @@ button a {
         padding: 0;
         transition: 0.5s;
         animation: move;
-        animation-duration: 40s;
+        animation-duration: 120s;
         animation-iteration-count: infinite;
+    }
+
+    .divInnerWindow {
+        width: 100%;
+        padding: unset;
+    }
+
+    .divForm {
+        width: 100%;
+    }
+
+    .individualInput {
+        width: 100%;
+    }
+
+    .individualInput input {
+        width: 100%;
+    }
+
+    .divTituloForm h2{
+        margin:  unset;
+        text-align: center;
     }
 
     @keyframes move {

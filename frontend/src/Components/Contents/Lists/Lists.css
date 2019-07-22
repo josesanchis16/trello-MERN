@@ -87,12 +87,27 @@
     border-radius: 5px;
     margin-top: 5px;
     transition: 0.5s;
-    height: 35px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
-.newTask:hover {
+.newTask>div {
+    width: 100%;
+}
+
+.newTask:hover{
     background: #eeeeee75;
     transition: 0.5s;
+}
+
+.newTask input {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    padding: 3px;
 }
 
 .divThinks {

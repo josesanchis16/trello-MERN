@@ -17,7 +17,7 @@ class Boards extends React.Component {
         super(props);
         this.state = {
             actualBoardName: '',
-            actualBoardColor: '',
+            actualBoardColor: 'linear-gradient(to right, #0000008c, #92929255),#f8a64a',
             showDivNewBoard: false,
             objBoards: [],
             boards: [],
@@ -239,11 +239,6 @@ class Boards extends React.Component {
         return "#" + Number(r).toString(16) + Number(g).toString(16) + Number(b).toString(16);
     }
 
-    componentToHex(c) {
-        var hex = c.toString(16);
-        return hex.length === 1 ? "0" + hex : hex;
-    }
-
     render() {
         return (
             <div className="bodyContent">
@@ -261,7 +256,7 @@ class Boards extends React.Component {
                         <div className="divColorFondo">
                             <p>Background Color:</p>
                             <ul ref={this.list}>
-                                <li style={{ background: '#F8A64A' }} className="actualBoardColor" onClick={this.handleColor}></li>
+                                <li style={{ background: '#F8A64A' }} className="actualBoardColor colorSelected" onClick={this.handleColor}></li>
                                 <li style={{ background: '#EA7070' }} className="actualBoardColor" onClick={this.handleColor}></li>
                                 <li style={{ background: '#764AF8' }} className="actualBoardColor" onClick={this.handleColor}></li>
                                 <li style={{ background: '#70C0EA' }} className="actualBoardColor" onClick={this.handleColor}></li>
