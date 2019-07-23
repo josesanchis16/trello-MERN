@@ -110,7 +110,7 @@ class Lists extends React.Component {
                 <div className="allLists">
                     {/* Aqui las listas */}
                     {this.state.lists}
-                    <NewList callback={this.callbackChild} board={this.props.board}/>
+                    <NewList callback={this.callbackChild} board={this.props.board} />
                 </div>
             </div>
         );

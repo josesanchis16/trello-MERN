@@ -45,10 +45,7 @@ class newList extends React.Component {
             store.dispatch(action);
 
             console.log('Se ha dispachado la accion en la store');
-
-            // //Tarea actual
-            const tarea = this.props.board.listas[this.props.board.listas.length - 1];
-
+            
             this.props.callback();
         }
 
