@@ -51,6 +51,136 @@
     height: 40px;
 }
 
+.settingsBar {
+    background: #eee;
+    position: absolute;
+    top: 58px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+.closeBtn {
+    position: relative;
+}
+
+.closeBtn>i {
+    border-radius: 10px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+}
+
+.settingsButtons {
+    padding: 15px;
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.buttonItem {
+    margin: 15px auto;
+    width: 100%;
+}
+
+.settingItem {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.settingItem>i {
+    margin-right: 10px;
+}
+
+.setting {
+    margin: 5px auto;
+    background: #acacac75;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.setting:hover {
+    background: #aaaaaa;
+}
+
+.inputDescription > .input >textarea{
+    border: none;
+    width: 100%;
+    height: 100px;
+    padding: 5px;
+    outline: none;
+    resize: none;
+    border-radius: 5px;
+}
+
+.peopleInvited>.settingItem {
+    display: flex;
+    justify-content: space-between;
+}
+
+.boardLink>.settingItem {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.inputLink {
+    background: #eee;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.inputLink>i {
+    padding: 5px;
+    font-size: 1.3em;
+}
+
+.inputLink>i:hover {
+    background: #8b8b8b;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputLink>input {
+    background: transparent;
+    border: none;
+    width: 100%;
+    padding: 3px;
+}
+
+.deleteBoard {
+    background: #e07676;
+}
+
+.confirmDeleteBoard>div {
+    border-radius: 5px;
+    margin: 5px auto;
+}
+
+.confirmDeleteBoard>div:nth-child(2){
+    background: #9af59a;
+}
+
+.confirmDeleteBoard>div:nth-child(3){
+    background: #e07676;
+}
+
 .tableName {
     width: 200px;
     display: flex;

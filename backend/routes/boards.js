@@ -78,11 +78,11 @@ router.post('/newTask', function (req, res) {
   BoardModel.findOneAndUpdate({
     _id: task.board_id,
     "listas._id": task.list_id
-  }, { 
-    $push: { 
-      "listas.$.tareas" : task 
-    } 
-  },
+  }, {
+      $push: {
+        "listas.$.tareas": task
+      }
+    },
     { new: true })
     .then(board => {
       console.log(board);
@@ -94,21 +94,55 @@ router.post('/newTask', function (req, res) {
     });
 })
 
-router.get('/changeName/:id/:name', function(req, res, next){ 
+router.get('/changeName/:id/:name', function (req, res, next) {
   const nombreNuevo = req.params.name;
   const id = req.params.id;
 
   BoardModel.findOneAndUpdate({
     _id: id
   }, {
-    name: nombreNuevo
-  },{new: true})
+      name: nombreNuevo
+    }, { new: true })
+    .then(board => {
+      res.send('Name changed successfully');
+    })
+    .catch(e => {
+      res.send('36');
+    })
+});
+
+router.post('/deleteBoard', function (req, res, next) {
+  const id = req.body.boardId;
+  console.log(id);
+  BoardModel.findOneAndDelete({
+    _id: id
+  })
+    .then(board => {
+      console.log(board);
+      res.send(board);
+    })
+    .catch(e =>{
+      res.send(37);
+    });
+});
+
+router.post('/changeDescription', function(req, res, next){
+  const description = req.body.description;
+  const boardId = req.body.boardId;
+  console.log(description);
+
+  BoardModel.findOneAndUpdate({
+    _id:boardId
+  }, {
+    "description" : description
+  }, {new: true})
   .then(board => {
-    res.send('Name changed successfully');
+    res.send(board);
   })
   .catch(e => {
-    res.send('36');
-  })
-});
+    console.log(e);
+    res.send(38);
+  });
+})
 
 module.exports = router;

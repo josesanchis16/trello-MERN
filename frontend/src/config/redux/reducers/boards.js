@@ -17,7 +17,7 @@ function boardsReducer(state = [], action) {
             },
             ...state
             ];
-        case 'NEWLIST':
+        case 'SETBOARD':
             const boardList = state[0].boardID;
             return state.map((board, index) => {
                 if (board._id === boardList) {

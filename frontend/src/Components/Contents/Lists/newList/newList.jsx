@@ -39,7 +39,7 @@ class newList extends React.Component {
             if (newBoard.data) console.log('Se ha insertado en la base de datos');
 
             const action = {
-                type: 'NEWLIST',
+                type: 'SETBOARD',
                 payload: newBoard.data
             }
             store.dispatch(action);

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 //Importamos los componentes
 import NewList from './newList/newList';
 import NewTask from './newTask/newTask';
+import SettingsBar from './actionBar/settingsBar/settings';
 
 import BoardName from './actionBar/boardName/boardName';
 
@@ -16,7 +17,8 @@ class Lists extends React.Component {
         this.state = {
             lists: [],
             tasks: [],
-            notification: ''
+            notification: '',
+            showSettings: false
         }
     }
 
@@ -87,6 +89,12 @@ class Lists extends React.Component {
         console.log(this.state);
     }
 
+    showSettings = async () => {
+        await this.setState({
+            showSettings: !this.state.showSettings
+        })
+    }
+
     render() {
         return (
             <div className="divLists" style={{ background: this.props.board.background }}>
@@ -94,6 +102,9 @@ class Lists extends React.Component {
                     <div className="notification" >
                         <p>{this.state.notification}</p>
                     </div>}
+
+                {this.state.showSettings &&
+                    <SettingsBar toggleSettings={this.showSettings} history={this.props.history}/>}
                 <div className="actionBar">
                     <div>
                         <BoardName board={this.props.board} callback={this.callbackChild} />
@@ -110,7 +121,7 @@ class Lists extends React.Component {
                         </div>
                     </div>
                     <div>
-                        <p className="moreOption item">
+                        <p onClick={this.showSettings} className="moreOption item">
                             <i className="fas fa-cog"></i>
                         </p>
                     </div>
