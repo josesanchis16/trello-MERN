@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import NewList from './newList/newList';
 import NewTask from './newTask/newTask';
 
+import BoardName from './actionBar/boardName/boardName';
+
 //Importamos los estilos
 import './Lists.css';
 
@@ -14,6 +16,7 @@ class Lists extends React.Component {
         this.state = {
             lists: [],
             tasks: [],
+            notification: ''
         }
     }
 
@@ -21,9 +24,11 @@ class Lists extends React.Component {
         this.cargarListas();
     }
 
-    callbackChild = async () => {
-        await this.cargarListas();
-        return true;
+    callbackChild = async (notify) => {
+        await this.setState({
+            notification: notify
+        });
+        this.cargarListas();
     }
 
     cargarListas = async () => {
@@ -85,26 +90,29 @@ class Lists extends React.Component {
     render() {
         return (
             <div className="divLists" style={{ background: this.props.board.background }}>
+                {this.state.notification &&
+                    <div className="notification" >
+                        <p>{this.state.notification}</p>
+                    </div>}
                 <div className="actionBar">
                     <div>
-                        <div className="tableName item">
-                            <div>{this.props.board.name}</div>
-                        </div>
-                        <div className="tableStar item">
-
+                        <BoardName board={this.props.board} callback={this.callbackChild} />
+                        <div className="tableStar item pc">
                             <i className="far fa-star"></i>
                         </div>
-                        <div className="tablePeople">
+                        <div className="tablePeople pc">
                             <div className="people item">
                                 {this.state.people}
                             </div>
-                            <div className="invitePeople item">
+                            <div className="invitePeople item pc">
                                 <p onClick={this.invitePeople}>Invite</p>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <p className="moreOption item">+</p>
+                        <p className="moreOption item">
+                            <i className="fas fa-cog"></i>
+                        </p>
                     </div>
                 </div>
                 <div className="allLists">

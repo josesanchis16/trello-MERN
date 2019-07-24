@@ -28,16 +28,16 @@
 
 .actionBar {
     background: #ffffff49;
-    padding: 0 15px;
+    /* padding: 0; */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px;
 }
 
-.actionBar > div {
+.actionBar>div {
     display: flex;
-    padding: 5px;
+    padding: 5px 0;
 }
 
 .item {
@@ -48,16 +48,41 @@
     align-items: center;
     padding: 2px 20px;
     margin: auto 5px;
-    height: 32px;
+    height: 40px;
 }
 
 .tableName {
     width: 200px;
-}
-
-.tablePeople{
     display: flex;
 }
+
+.changeName {
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background: #eee;
+}
+
+.changeName>input {
+    border: none;
+    padding: 5px;
+    background: #eee;
+    outline: none;
+}
+
+.botonera {
+    margin-left: 5px;
+}
+
+.botonera i {
+    margin: auto 5px;
+}
+
+.tablePeople {
+    display: flex;
+}
+
 .allLists {
     padding: 25px;
     display: flex;
@@ -212,4 +237,17 @@
 .btnNewList:hover {
     background: #eeeeee75;
     transition: 0.5s;
+}
+
+.movil {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    .pc {
+        display: none;
+    }
+    .movil {
+        display: flex;
+    }
 }

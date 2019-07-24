@@ -94,4 +94,21 @@ router.post('/newTask', function (req, res) {
     });
 })
 
+router.get('/changeName/:id/:name', function(req, res, next){ 
+  const nombreNuevo = req.params.name;
+  const id = req.params.id;
+
+  BoardModel.findOneAndUpdate({
+    _id: id
+  }, {
+    name: nombreNuevo
+  },{new: true})
+  .then(board => {
+    res.send('Name changed successfully');
+  })
+  .catch(e => {
+    res.send('36');
+  })
+});
+
 module.exports = router;

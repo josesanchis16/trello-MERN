@@ -98,6 +98,17 @@ button a {
     text-align: center;
 }
 
+.notification {
+    background:#eee;
+    position: absolute;
+    bottom: 50px;
+    left:25px;
+    right: 25px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 0 #454545;
+}
+
 @media (max-width: 750px) {
     .bodyContent {
         padding: 0;

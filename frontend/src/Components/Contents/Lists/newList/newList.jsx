@@ -46,7 +46,7 @@ class newList extends React.Component {
 
             console.log('Se ha dispachado la accion en la store');
             
-            this.props.callback();
+            this.props.callback('');
         }
 
     }

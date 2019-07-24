@@ -66,7 +66,7 @@ class newTask extends React.Component {
             showNewTask: !this.state.showNewTask
         });
 
-        this.props.callback();
+        this.props.callback('Task created');
     }
 
     handleInputTask = async (e) => {
@@ -95,7 +95,7 @@ class newTask extends React.Component {
 
     render() {
         return (
-            <div className="newTask" onClick={this.handleSubmit}>
+            <div className="newTask">
                 <div className="newList" style={{ display: this.state.showNewTask ? 'block' : 'none' }}>
                     <div>
                         <div className="inputName">
@@ -107,7 +107,7 @@ class newTask extends React.Component {
                         </div>
                     </div>
                 </div>
-                <p style={{ display: this.state.showNewTask ? 'none' : 'block' }} board_id={this.props.board._id} list_id={this.props.list_id}>+ Add new task</p>
+                <p onClick={this.handleSubmit}  style={{ display: this.state.showNewTask ? 'none' : 'block' }} board_id={this.props.board._id} list_id={this.props.list_id}>+ Add new task</p>
             </div>
         );
     }
