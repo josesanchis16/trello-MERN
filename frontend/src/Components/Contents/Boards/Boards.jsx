@@ -49,7 +49,6 @@ class Boards extends React.Component {
 
         //Comprobamos que haya un usuario en la memoria
         if (this.props.user) {
-            console.log(this.props.user);
             const userId = this.props.user._id;
 
             const boards = await axios.post(`${settings.backend.host_backend}${settings.backend.port_backend}/boards/getUserBoards`, {
@@ -68,6 +67,14 @@ class Boards extends React.Component {
                             </p>
                         </div>;
 
+                    //Guardamos el array de objetos
+                    await this.setState({
+                        objBoards: [
+                            ...this.state.objBoards,
+                            board
+                        ]
+                    });
+
                     //Insertamos las que estan stared en su array correspondiente
                     if (board.stared) {
                         await this.setState({
@@ -75,7 +82,7 @@ class Boards extends React.Component {
                                 boardHTML,
                                 ...this.state.staredBoards,
                             ]
-                        })
+                        });
                     }
 
                     //Rellenamos la array general
@@ -85,18 +92,10 @@ class Boards extends React.Component {
                             ...this.state.boards
                         ]
                     });
-
-                    //Guardamos el array de objetos
-                    await this.setState({
-                        objBoards: [
-                            ...this.state.objBoards,
-                            board
-                        ]
-                    });
                 });
+
                 //Insertamos en redux todos los objetos
                 try {
-                    console.log(this.state.objBoards);
                     const arrObj = this.state.objBoards;
                     const action = {
                         type: 'LOADBOARDS',
@@ -325,7 +324,7 @@ class Boards extends React.Component {
 const mapStateToProps = state => {
     return ({
         user: state.userReducer.loginToken,
-        boards: state.boardsReducer.boards
+        boards: state.boardsReducer
     })
 }
 

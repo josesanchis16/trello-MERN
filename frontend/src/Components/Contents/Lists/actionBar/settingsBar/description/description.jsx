@@ -15,11 +15,7 @@ class Description extends React.Component {
             descripcion: this.props.board.description,
             toggleDescriptionInput: false,
         }
-        this.descripcionIinput = React.createRef();
-    }
-
-    componentDidMount(){
-        this.descripcionIinput.current.value = this.state.descripcion;
+        this.descripcionInput = React.createRef();
     }
 
     toggleInput = async () => {
@@ -65,7 +61,7 @@ class Description extends React.Component {
                 </div>
                 <div className="inputDescription" style={{ display: this.state.toggleDescriptionInput ? 'block' : 'none' }}>
                     <div className="input">
-                        <textarea placeholder="Type something..." name="descripcion" onChange={this.handleCahnge} ref={this.descripcionIinput}></textarea>
+                        <textarea placeholder="Type something..." name="descripcion" onChange={this.handleCahnge} ref={this.descripcionInput}></textarea>
                     </div>
                     <div className="buttons divBtnAceptar">
                         <p onClick={this.changeDescription}>Accept</p>

@@ -7,6 +7,7 @@ import settings from './../../../../../config/settings';
 
 //Importamos los componentes
 import Descripcion from './description/description';
+import Favorite from './staredBoard/staredBoard';
 
 class SettingsBar extends React.Component {
     constructor(props) {
@@ -52,12 +53,7 @@ class SettingsBar extends React.Component {
                     </div>
                     <div className="settings buttonItem">
                         <h3>Settings</h3>
-                        <div className="setting staredBoard">
-                            <div className="subDivSettingItem settingItem">
-                                <i className="fas fa-star"></i>
-                                <p>Make board favorite</p>
-                            </div>
-                        </div>
+                        <Favorite />
                         <div className="setting peopleInvited">
                             <div className="subDivSettingItem settingItem">
                                 <div className="subDivPeople">

@@ -121,28 +121,51 @@ router.post('/deleteBoard', function (req, res, next) {
       console.log(board);
       res.send(board);
     })
-    .catch(e =>{
+    .catch(e => {
       res.send(37);
     });
 });
 
-router.post('/changeDescription', function(req, res, next){
+router.post('/changeDescription', function (req, res, next) {
   const description = req.body.description;
   const boardId = req.body.boardId;
   console.log(description);
 
   BoardModel.findOneAndUpdate({
-    _id:boardId
+    _id: boardId
   }, {
-    "description" : description
-  }, {new: true})
-  .then(board => {
-    res.send(board);
+      "description": description
+    }, { new: true })
+    .then(board => {
+      res.send(board);
+    })
+    .catch(e => {
+      console.log(e);
+      res.send(381);
+    });
+});
+
+router.get('/staredBoard/:id', function (req, res, next) {
+  const id = req.params.id;
+
+  BoardModel.findOne({
+    _id: id
   })
-  .catch(e => {
-    console.log(e);
-    res.send(38);
-  });
+    .then(board => {
+      BoardModel.findOneAndUpdate({
+        _id: board._id
+      }, { "stared": !board.stared }
+        , { new: true })
+        .then(board => { res.send(board) })
+        .catch(e => {
+          console.log(e);
+          res.send(384);
+        })
+    })
+    .catch(e => {
+      console.log(e);
+      res.send(383);
+    });
 })
 
 module.exports = router;
