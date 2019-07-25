@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Axios from 'axios';
 
 //Importamos los componentes
 import NewList from './newList/newList';
@@ -7,6 +8,12 @@ import NewTask from './newTask/newTask';
 import SettingsBar from './actionBar/settingsBar/settings';
 
 import BoardName from './actionBar/boardName/boardName';
+
+//Importamos los settings
+import settings from './../../../config/settings';
+
+//Importamos la store
+import store from './../../../config/redux/store';
 
 //Importamos los estilos
 import './Lists.css';
@@ -84,6 +91,18 @@ class Lists extends React.Component {
         }
     }
 
+    toggleFavorite = async () => {
+        const res = await Axios.get(`${settings.backend.host_backend}${settings.backend.port_backend}/boards/staredBoard/${this.props.board._id}`);
+        const action = {
+            type: "SETBOARD",
+            payload: res.data
+        }
+        store.dispatch(action);
+        await this.setState({
+            stared: !this.state.stared
+        });
+    }
+
     handleChange = async (e) => {
         await this.setState({ [e.target.name]: e.target.value });
         console.log(this.state);
@@ -104,12 +123,14 @@ class Lists extends React.Component {
                     </div>}
 
                 {this.state.showSettings &&
-                    <SettingsBar toggleSettings={this.showSettings} history={this.props.history}/>}
+                    <SettingsBar toggleSettings={this.showSettings} history={this.props.history} />}
                 <div className="actionBar">
                     <div>
                         <BoardName board={this.props.board} callback={this.callbackChild} />
-                        <div className="tableStar item pc">
-                            <i className="far fa-star"></i>
+                        <div className="tableStar item pc" onClick={this.toggleFavorite}>
+                            <div>
+                                <i className="fas fa-star" style={{color: this.props.board.stared ? '#ff9900' : ''}}></i>
+                            </div>
                         </div>
                         <div className="tablePeople pc">
                             <div className="people item">
