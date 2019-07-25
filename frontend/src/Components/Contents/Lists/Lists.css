@@ -214,6 +214,7 @@
 
 .allLists {
     padding: 25px;
+    padding-right: 25px !important;
     display: flex;
     overflow: auto;
     margin-bottom: 10px;
@@ -313,16 +314,21 @@
 .newList {
     display: none;
     padding: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .newList>div {
     align-items: flex-end;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .inputName {
     padding: 5px;
+    width: 100%;
 }
 
 .inputName input {
@@ -399,5 +405,8 @@
     }
     .settingsBar {
         left: 0;
+    }
+    .list {
+        width: 100%;
     }
 }
