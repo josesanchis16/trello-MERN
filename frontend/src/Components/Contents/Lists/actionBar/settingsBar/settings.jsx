@@ -8,6 +8,7 @@ import settings from './../../../../../config/settings';
 //Importamos los componentes
 import Descripcion from './description/description';
 import Favorite from './staredBoard/staredBoard';
+import People from './../people/people';
 
 class SettingsBar extends React.Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class SettingsBar extends React.Component {
             boardId
         });
 
-        if (res.data){
+        if (res.data) {
             this.props.history.push('/');
         }
     }
@@ -57,7 +58,7 @@ class SettingsBar extends React.Component {
                         <div className="setting peopleInvited">
                             <div className="subDivSettingItem settingItem">
                                 <div className="subDivPeople">
-
+                                    <People />
                                 </div>
                                 <div className="subDivInvitation">
                                     <a href="">Invite</a>

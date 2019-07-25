@@ -6,6 +6,7 @@ import Axios from 'axios';
 import NewList from './newList/newList';
 import NewTask from './newTask/newTask';
 import SettingsBar from './actionBar/settingsBar/settings';
+import People from './actionBar/people/people';
 
 import BoardName from './actionBar/boardName/boardName';
 
@@ -129,12 +130,12 @@ class Lists extends React.Component {
                         <BoardName board={this.props.board} callback={this.callbackChild} />
                         <div className="tableStar item pc" onClick={this.toggleFavorite}>
                             <div>
-                                <i className="fas fa-star" style={{color: this.props.board.stared ? '#ff9900' : ''}}></i>
+                                <i className="fas fa-star" style={{ color: this.props.board.stared ? '#ff9900' : '' }}></i>
                             </div>
                         </div>
                         <div className="tablePeople pc">
                             <div className="people item">
-                                {this.state.people}
+                                <People />
                             </div>
                             <div className="invitePeople item pc">
                                 <p onClick={this.invitePeople}>Invite</p>
